@@ -886,7 +886,7 @@ function Contact() {
                         <div className="rounded-2xl overflow-hidden border border-gray-200 h-64">
                             <iframe
                                 title="AppNest Office"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.2!2d73.85!3d18.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMxJzEyLjAiTiA3M8KwNTEnMDAuMCJF!5e0!3m2!1sen!2sin!4v1700000000000"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19133.674879454007!2d74.26213805967542!3d34.40604702360136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38e11cede799fc8d%3A0x37953ecde7a3233c!2sHandwara%20193221!5e1!3m2!1sen!2sin!4v1771605053470!5m2!1sen!2sin"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}

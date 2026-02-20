@@ -2,12 +2,15 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import Loader from './components/Loader'
+import ScrollToTop from './components/ScrollToTop'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import BlogDetail from './pages/BlogDetail'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsAndConditions from './pages/TermsAndConditions'
 
 /* Admin Pages */
 import AdminLayout from './admin/AdminLayout'
@@ -67,6 +70,7 @@ export default function App() {
     return (
         <BrowserRouter>
             <AuthProvider>
+                <ScrollToTop />
                 <Loader />
                 <Toaster position="top-right" toastOptions={{ duration: 4000, style: { borderRadius: '12px', padding: '14px 20px' } }} />
                 <Routes>
@@ -74,6 +78,8 @@ export default function App() {
                     <Route element={<PublicLayout />}>
                         <Route index element={<Home />} />
                         <Route path="blog/:slug" element={<BlogDetail />} />
+                        <Route path="privacy" element={<PrivacyPolicy />} />
+                        <Route path="terms" element={<TermsAndConditions />} />
                     </Route>
                     <Route path="/login" element={<Login />} />
 

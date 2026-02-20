@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
 
@@ -16,6 +16,7 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false)
     const [mobileOpen, setMobileOpen] = useState(false)
     const location = useLocation()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -29,6 +30,11 @@ export default function Navbar() {
 
     const handleNavClick = (href) => {
         setMobileOpen(false)
+        if (location.pathname !== '/') {
+            navigate(href)
+            return
+        }
+
         if (href.startsWith('/#')) {
             const id = href.replace('/#', '')
             const el = document.getElementById(id)

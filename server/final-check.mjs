@@ -1,0 +1,22 @@
+import pg from 'pg';
+const { Pool } = pg;
+
+const pool = new Pool({
+    connectionString: 'postgresql://appnest_db_user:EGrguQETindd2BYFQ8DoSv0PSm8PqjHM@dpg-d6c0fqi4d50c73d14b4g-a.oregon-postgres.render.com:5432/appnest_db',
+    ssl: { rejectUnauthorized: false }
+});
+
+async function check() {
+    try {
+        const res = await pool.query('SELECT name, email, role FROM users');
+        console.log('---USERS START---');
+        console.log(JSON.stringify(res.rows, null, 2));
+        console.log('---USERS END---');
+    } catch (err) {
+        console.error('DATABASE_ERROR:', err.message);
+    } finally {
+        await pool.end();
+    }
+}
+
+check();
