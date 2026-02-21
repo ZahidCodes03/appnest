@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import BlogDetail from './pages/BlogDetail'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from './pages/TermsAndConditions'
+import Careers from './pages/Careers'
 
 /* Admin Pages */
 import AdminLayout from './admin/AdminLayout'
@@ -29,6 +30,8 @@ import AdminSettings from './admin/Settings'
 import AdminMessages from './admin/Messages'
 import AdminTickets from './admin/Tickets'
 import AdminAdmins from './admin/Admins'
+import AdminJobs from './admin/Jobs'
+import AdminApplications from './admin/Applications'
 
 /* Client Portal Pages */
 import PortalLayout from './portal/PortalLayout'
@@ -80,6 +83,7 @@ export default function App() {
                         <Route path="blog/:slug" element={<BlogDetail />} />
                         <Route path="privacy" element={<PrivacyPolicy />} />
                         <Route path="terms" element={<TermsAndConditions />} />
+                        <Route path="careers" element={<Careers />} />
                     </Route>
                     <Route path="/login" element={<Login />} />
 
@@ -101,6 +105,8 @@ export default function App() {
                             <Route path="tickets" element={<AdminTickets />} />
                             <Route path="messages" element={<AdminMessages />} />
                             <Route path="settings" element={<AdminSettings />} />
+                            <Route path="jobs" element={<AdminJobs />} />
+                            <Route path="applications" element={<AdminApplications />} />
                         </Route>
                     </Route>
 

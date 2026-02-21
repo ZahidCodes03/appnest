@@ -4,10 +4,13 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL.includes("render.com")
-    ? { rejectUnauthorized: false }
-    : false,
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DATABASE_URL.includes("render.com")
+        ? { rejectUnauthorized: false }
+        : false,
+    connectionTimeoutMillis: 10000, // Wait 10s for initial connection
+    max: 20, // Max clients in pool
+    idleTimeoutMillis: 30000 // Close idle clients after 30s
 });
 
 export const initDb = async () => {
@@ -64,6 +67,32 @@ export const initDb = async () => {
             ALTER TABLE invoices ADD COLUMN IF NOT EXISTS transaction_id VARCHAR(255);
             ALTER TABLE testimonials ADD COLUMN IF NOT EXISTS approved BOOLEAN DEFAULT TRUE;
             ALTER TABLE testimonials ADD COLUMN IF NOT EXISTS email VARCHAR(255);
+            CREATE TABLE IF NOT EXISTS job_postings (
+                id SERIAL PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                category VARCHAR(100) NOT NULL,
+                type VARCHAR(50) DEFAULT 'Full-time',
+                location VARCHAR(255) DEFAULT 'Remote',
+                description TEXT NOT NULL,
+                requirements TEXT,
+                salary_range VARCHAR(100),
+                vacancy_count INTEGER DEFAULT 1,
+                status VARCHAR(20) DEFAULT 'active',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            CREATE TABLE IF NOT EXISTS job_applications (
+                id SERIAL PRIMARY KEY,
+                job_id INTEGER REFERENCES job_postings(id) ON DELETE CASCADE,
+                full_name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                phone VARCHAR(50),
+                resume_url TEXT NOT NULL,
+                cover_letter TEXT,
+                portfolio_url TEXT,
+                status VARCHAR(20) DEFAULT 'pending',
+                applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            ALTER TABLE job_postings ADD COLUMN IF NOT EXISTS vacancy_count INTEGER DEFAULT 1;
         `)
         console.log('✅ Database tables initialized')
     } catch (err) {

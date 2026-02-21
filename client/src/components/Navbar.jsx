@@ -9,6 +9,7 @@ const navLinks = [
     { name: 'Portfolio', href: '/#portfolio' },
     { name: 'About', href: '/#about' },
     { name: 'Pricing', href: '/#pricing' },
+    { name: 'Careers', href: '/careers' },
     { name: 'Contact', href: '/#contact' },
 ]
 
@@ -30,18 +31,21 @@ export default function Navbar() {
 
     const handleNavClick = (href) => {
         setMobileOpen(false)
-        if (location.pathname !== '/') {
-            navigate(href)
-            return
-        }
 
         if (href.startsWith('/#')) {
+            if (location.pathname !== '/') {
+                navigate(href)
+                return
+            }
             const id = href.replace('/#', '')
             const el = document.getElementById(id)
             if (el) {
                 el.scrollIntoView({ behavior: 'smooth' })
             }
+            return
         }
+
+        navigate(href)
     }
 
     return (

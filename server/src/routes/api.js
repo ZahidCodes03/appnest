@@ -752,4 +752,73 @@ router.patch('/invoices/:id/reject', authenticate, adminOnly, async (req, res) =
 })
 
 
+
+/* ===== JOB POSTINGS ===== */
+router.get('/jobs', async (req, res) => {
+    try { res.json((await pool.query("SELECT * FROM job_postings WHERE status='active' ORDER BY created_at DESC")).rows) }
+    catch { res.status(500).json({ error: 'Server error' }) }
+})
+router.get('/jobs/all', authenticate, adminOnly, async (req, res) => {
+    try { res.json((await pool.query('SELECT * FROM job_postings ORDER BY created_at DESC')).rows) }
+    catch { res.status(500).json({ error: 'Server error' }) }
+})
+router.post('/jobs', authenticate, adminOnly, async (req, res) => {
+    try {
+        const { title, category, type, location, description, requirements, salary_range, vacancy_count } = req.body
+        const r = await pool.query('INSERT INTO job_postings (title,category,type,location,description,requirements,salary_range,vacancy_count) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *', [title, category, type || 'Full-time', location || 'Remote', description, requirements, salary_range, vacancy_count || 1])
+        res.status(201).json(r.rows[0])
+    } catch { res.status(500).json({ error: 'Server error' }) }
+})
+router.put('/jobs/:id', authenticate, adminOnly, async (req, res) => {
+    try {
+        const { title, category, type, location, description, requirements, salary_range, vacancy_count, status } = req.body
+        const r = await pool.query('UPDATE job_postings SET title=$1,category=$2,type=$3,location=$4,description=$5,requirements=$6,salary_range=$7,vacancy_count=$8,status=$9 WHERE id=$10 RETURNING *', [title, category, type, location, description, requirements, salary_range, vacancy_count || 1, status, req.params.id])
+        res.json(r.rows[0])
+    } catch { res.status(500).json({ error: 'Server error' }) }
+})
+router.delete('/jobs/:id', authenticate, adminOnly, async (req, res) => {
+    try { await pool.query('DELETE FROM job_postings WHERE id=$1', [req.params.id]); res.json({ message: 'Deleted' }) }
+    catch { res.status(500).json({ error: 'Server error' }) }
+})
+
+/* ===== JOB APPLICATIONS ===== */
+router.get('/applications', authenticate, adminOnly, async (req, res) => {
+    try {
+        const r = await pool.query('SELECT a.*, j.title as job_title FROM job_applications a LEFT JOIN job_postings j ON a.job_id = j.id ORDER BY a.applied_at DESC')
+        res.json(r.rows)
+    } catch { res.status(500).json({ error: 'Server error' }) }
+})
+router.post('/applications', async (req, res) => {
+    try {
+        const { job_id, full_name, email, phone, resume_url, cover_letter, portfolio_url } = req.body
+        if (!full_name || !email || !resume_url) return res.status(400).json({ error: 'Required fields missing' })
+        const r = await pool.query('INSERT INTO job_applications (job_id,full_name,email,phone,resume_url,cover_letter,portfolio_url) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *', [job_id, full_name, email, phone, resume_url, cover_letter, portfolio_url])
+
+        // Notify admin
+        try {
+            const admin = await pool.query("SELECT id FROM users WHERE role='admin' LIMIT 1")
+            if (admin.rows.length > 0) {
+                const jobTitle = job_id ? (await pool.query('SELECT title FROM job_postings WHERE id=$1', [job_id])).rows[0]?.title : 'General Application'
+                await pool.query(
+                    'INSERT INTO notifications (user_id, title, message, type, link) VALUES ($1, $2, $3, $4, $5)',
+                    [admin.rows[0].id, 'New Job Application', `Application from ${full_name} for ${jobTitle}`, 'info', '/admin/applications']
+                )
+            }
+        } catch (noticeErr) { console.error('Notification failed:', noticeErr) }
+
+        res.status(201).json(r.rows[0])
+    } catch (err) { res.status(500).json({ error: 'Server error' }) }
+})
+router.patch('/applications/:id/status', authenticate, adminOnly, async (req, res) => {
+    try {
+        const { status } = req.body
+        const r = await pool.query('UPDATE job_applications SET status=$1 WHERE id=$2 RETURNING *', [status, req.params.id])
+        res.json(r.rows[0])
+    } catch { res.status(500).json({ error: 'Server error' }) }
+})
+router.delete('/applications/:id', authenticate, adminOnly, async (req, res) => {
+    try { await pool.query('DELETE FROM job_applications WHERE id=$1', [req.params.id]); res.json({ message: 'Deleted' }) }
+    catch { res.status(500).json({ error: 'Server error' }) }
+})
+
 export default router

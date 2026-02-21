@@ -6,7 +6,7 @@ import {
     HiOutlineHome, HiOutlineInbox, HiOutlineFolder, HiOutlinePhotograph,
     HiOutlinePencilAlt, HiOutlineStar, HiOutlineCurrencyRupee, HiOutlineDocumentText,
     HiOutlineUsers, HiOutlineDownload, HiOutlineCog, HiOutlineLogout, HiOutlineMenu, HiOutlineX, HiOutlineExternalLink,
-    HiOutlineChatAlt2
+    HiOutlineChatAlt2, HiOutlineBriefcase, HiOutlineClipboardList
 } from 'react-icons/hi'
 import NotificationDropdown from '../components/NotificationDropdown'
 
@@ -24,6 +24,8 @@ const sidebarLinks = [
     { name: 'Invoices', path: '/admin/invoices', icon: HiOutlineDocumentText },
     { name: 'Clients', path: '/admin/clients', icon: HiOutlineUsers },
     { name: 'Admins', path: '/admin/admins', icon: HiOutlineUsers },
+    { name: 'Jobs', path: '/admin/jobs', icon: HiOutlineBriefcase },
+    { name: 'Applications', path: '/admin/applications', icon: HiOutlineClipboardList },
     { name: 'Proposal Leads', path: '/admin/leads', icon: HiOutlineDownload },
     { name: 'Settings', path: '/admin/settings', icon: HiOutlineCog },
 ]

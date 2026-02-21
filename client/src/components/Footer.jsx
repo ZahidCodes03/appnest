@@ -7,6 +7,7 @@ const quickLinks = [
     { name: 'Portfolio', href: '/#portfolio' },
     { name: 'About Us', href: '/#about' },
     { name: 'Pricing', href: '/#pricing' },
+    { name: 'Vacancies', href: '/careers' },
     { name: 'Contact', href: '/#contact' },
 ]
 
@@ -132,6 +133,7 @@ export default function Footer() {
                     <div className="flex gap-6 text-sm">
                         <Link to="/privacy" className="text-gray-500 hover:text-gray-300 transition-colors">Privacy Policy</Link>
                         <Link to="/terms" className="text-gray-500 hover:text-gray-300 transition-colors">Terms & Conditions</Link>
+                        <Link to="/careers" className="text-gray-500 hover:text-gray-300 transition-colors">Vacancies</Link>
                     </div>
                 </div>
             </div>

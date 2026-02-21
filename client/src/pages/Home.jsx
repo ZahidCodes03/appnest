@@ -1,7 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FaCode, FaMobileAlt, FaPalette, FaShoppingCart, FaLaptopCode, FaTools, FaSearch, FaRocket, FaShieldAlt, FaHandshake, FaDollarSign, FaHeadset, FaUsers, FaStar, FaCheck, FaArrowRight, FaHospital, FaGraduationCap, FaStore, FaBuilding, FaSolarPanel, FaLightbulb, FaQuoteLeft, FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaDownload } from 'react-icons/fa'
+import { FaCode, FaMobileAlt, FaPalette, FaShoppingCart, FaLaptopCode, FaTools, FaSearch, FaRocket, FaShieldAlt, FaHandshake, FaDollarSign, FaHeadset, FaUsers, FaStar, FaCheck, FaArrowRight, FaArrowLeft, FaHospital, FaGraduationCap, FaStore, FaBuilding, FaSolarPanel, FaLightbulb, FaQuoteLeft, FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaDownload } from 'react-icons/fa'
 import toast from 'react-hot-toast'
 import api from '../lib/api'
 
@@ -83,11 +83,11 @@ function Hero() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <FadeIn>
+                        {/* <FadeIn>
                             <span className="inline-block bg-violet-100 text-violet-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
                                 🚀 #1 Software Agency
                             </span>
-                        </FadeIn>
+                        </FadeIn> */}
                         <FadeIn delay={0.1}>
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
                                 We Build Modern{' '}
@@ -265,22 +265,77 @@ const getGradient = (i) => {
 }
 
 function Portfolio() {
-    const [portfolioItems, setPortfolioItems] = useState([])
-    const [loading, setLoading] = useState(true)
+    const fallbackItems = [
+        { title: 'Modern E-Commerce', tech: 'React, Node.js, PostgreSQL', category: 'Web Development', description: 'A full-featured online store with payment gateway integration and real-time inventory.', screenshot_url: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80', demo_url: '#' },
+        { title: 'HealthSync App', tech: 'React Native, Firebase', category: 'Mobile App', description: 'Comprehensive health tracking app with telemedicine integration and live consultation.', screenshot_url: 'https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80', demo_url: '#' },
+        { title: 'EduPro LMS', tech: 'Next.js, Tailwind, Prisma', category: 'Web Application', description: 'Institutional learning management system with video streaming and interactive quizzes.', screenshot_url: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80', demo_url: '#' },
+    ]
+    const [portfolioItems, setPortfolioItems] = useState(fallbackItems)
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const [direction, setDirection] = useState(0)
 
     useEffect(() => {
         const fetchPortfolio = async () => {
             try {
                 const { data } = await api.get('/portfolio')
-                setPortfolioItems(data)
+                if (data && data.length > 0) setPortfolioItems(data)
             } catch (error) {
                 console.error('Failed to fetch portfolio', error)
-            } finally {
-                setLoading(false)
             }
         }
         fetchPortfolio()
     }, [])
+
+    // Auto-slide every 4 seconds
+    useEffect(() => {
+        if (portfolioItems.length <= 1) return
+        const timer = setInterval(() => {
+            setDirection(1)
+            setCurrentIndex(prev => (prev + 1) % portfolioItems.length)
+        }, 4000)
+        return () => clearInterval(timer)
+    }, [portfolioItems.length])
+
+    const getImageUrl = (url) => {
+        if (!url) return null
+        if (url.includes('localhost')) {
+            const parts = url.split('/uploads/')
+            if (parts[1]) url = `/uploads/${parts[1]}`
+        }
+        if (url.startsWith('http')) return url
+        const backendUrl = import.meta.env.VITE_API_URL || ''
+        return `${backendUrl}${url}`
+    }
+
+    const goTo = (index) => {
+        setDirection(index > currentIndex ? 1 : -1)
+        setCurrentIndex(index)
+    }
+
+    const goPrev = () => {
+        setDirection(-1)
+        setCurrentIndex(prev => (prev - 1 + portfolioItems.length) % portfolioItems.length)
+    }
+
+    const goNext = () => {
+        setDirection(1)
+        setCurrentIndex(prev => (prev + 1) % portfolioItems.length)
+    }
+
+    const slideVariants = {
+        enter: (dir) => ({ x: dir > 0 ? 300 : -300, opacity: 0, scale: 0.95 }),
+        center: { x: 0, opacity: 1, scale: 1 },
+        exit: (dir) => ({ x: dir > 0 ? -300 : 300, opacity: 0, scale: 0.95 }),
+    }
+
+    // Get visible cards (current + neighbours for desktop)
+    const getVisibleIndices = () => {
+        const len = portfolioItems.length
+        if (len <= 3) return portfolioItems.map((_, i) => i)
+        const prev = (currentIndex - 1 + len) % len
+        const next = (currentIndex + 1) % len
+        return [prev, currentIndex, next]
+    }
 
     return (
         <section id="portfolio" className="py-20 md:py-28 bg-white">
@@ -293,39 +348,97 @@ function Portfolio() {
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Showcasing our best projects across various industries.</p>
                     </div>
                 </FadeIn>
-                {loading ? (
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[1, 2, 3].map((i) => (
-                            <div key={i} className="animate-pulse bg-gray-100 rounded-2xl h-80"></div>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {(portfolioItems.length > 0 ? portfolioItems : [
-                            { title: 'Modern E-Commerce', tech: 'React, Node.js, PostgreSQL', category: 'Web Development', description: 'A full-featured online store with payment gateway integration and real-time inventory.', screenshot_url: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80', demo_url: '#' },
-                            { title: 'HealthSync App', tech: 'React Native, Firebase', category: 'Mobile App', description: 'Comprehensive health tracking app with telemedicine integration and live consultation.', screenshot_url: 'https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80', demo_url: '#' },
-                            { title: 'EduPro LMS', tech: 'Next.js, Tailwind, Prisma', category: 'Web Application', description: 'Institutional learning management system with video streaming and interactive quizzes.', screenshot_url: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80', demo_url: '#' },
-                        ]).map((p, i) => (
-                            <FadeIn key={p.id || i} delay={i * 0.08}>
-                                <div className="group rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 shadow-lg transition-all duration-300 h-full flex flex-col">
-                                    <div className={`h-48 bg-gray-900 flex items-center justify-center relative overflow-hidden shrink-0`}>
+
+                {/* Desktop: 3-card slider */}
+                <div className="hidden md:block relative">
+                    <div className="grid grid-cols-3 gap-6">
+                        {getVisibleIndices().map((idx, pos) => {
+                            const p = portfolioItems[idx]
+                            return (
+                                <motion.div
+                                    key={`${p.id || idx}-${currentIndex}`}
+                                    initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                                    className={`group rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 shadow-lg transition-all duration-300 h-full flex flex-col ${pos === 1 ? 'ring-2 ring-violet-400/50 shadow-xl shadow-violet-500/20 scale-[1.02]' : 'opacity-80 hover:opacity-100'
+                                        }`}
+                                >
+                                    <div className="h-48 bg-gray-900 flex items-center justify-center relative overflow-hidden shrink-0">
                                         <div className="absolute inset-0 bg-black/5" />
                                         {p.screenshot_url ? (
                                             <img
-                                                src={(() => {
-                                                    let url = p.screenshot_url;
-                                                    if (url.includes('localhost')) {
-                                                        const parts = url.split('/uploads/');
-                                                        if (parts[1]) url = `/uploads/${parts[1]}`;
-                                                    }
-                                                    return url.startsWith('http') ? url : `${import.meta.env.VITE_API_URL || ''}${url}`;
-                                                })()}
+                                                src={getImageUrl(p.screenshot_url)}
                                                 alt={p.title}
-                                                className="w-full h-full object-contain"
+                                                className="w-full h-full object-cover"
+                                                loading="eager"
                                             />
-                                        ) : (
+                                        ) : null}
+                                        <div className={`absolute inset-0 items-center justify-center ${p.screenshot_url ? 'hidden' : 'flex'}`}>
                                             <FaLaptopCode className="w-16 h-16 text-white/40" />
-                                        )}
+                                        </div>
+                                        <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">{p.category}</span>
+                                    </div>
+                                    <div className="p-5 flex flex-col flex-1">
+                                        <h3 className="font-bold text-white text-lg">{p.title}</h3>
+                                        <p className="text-violet-100 text-xs mt-1 font-medium">{p.tech}</p>
+                                        <p className="text-blue-50 text-sm mt-3 line-clamp-3 mb-4 flex-1">{p.description}</p>
+                                        <a href={p.demo_url || '#'} target="_blank" rel="noopener noreferrer" className="mt-auto text-white text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all">
+                                            View Details <FaArrowRight className="w-3 h-3" />
+                                        </a>
+                                    </div>
+                                </motion.div>
+                            )
+                        })}
+                    </div>
+
+                    {/* Navigation arrows */}
+                    {portfolioItems.length > 3 && (
+                        <>
+                            <button onClick={goPrev} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-600 hover:text-violet-600 hover:shadow-xl transition-all z-10">
+                                <FaArrowLeft className="w-4 h-4" />
+                            </button>
+                            <button onClick={goNext} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-600 hover:text-violet-600 hover:shadow-xl transition-all z-10">
+                                <FaArrowRight className="w-4 h-4" />
+                            </button>
+                        </>
+                    )}
+                </div>
+
+                {/* Mobile: Single card slider */}
+                <div className="md:hidden relative overflow-hidden">
+                    <motion.div
+                        key={currentIndex}
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        transition={{ duration: 0.4, ease: 'easeInOut' }}
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.2}
+                        onDragEnd={(_, info) => {
+                            if (info.offset.x < -50) goNext()
+                            else if (info.offset.x > 50) goPrev()
+                        }}
+                    >
+                        {(() => {
+                            const p = portfolioItems[currentIndex]
+                            return (
+                                <div className="group rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 shadow-lg flex flex-col">
+                                    <div className="h-48 bg-gray-900 flex items-center justify-center relative overflow-hidden shrink-0">
+                                        <div className="absolute inset-0 bg-black/5" />
+                                        {p.screenshot_url ? (
+                                            <img
+                                                src={getImageUrl(p.screenshot_url)}
+                                                alt={p.title}
+                                                className="w-full h-full object-cover"
+                                                loading="eager"
+                                                onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling && (e.target.nextSibling.style.display = 'flex'); }}
+                                            />
+                                        ) : null}
+                                        <div className={`absolute inset-0 items-center justify-center ${p.screenshot_url ? 'hidden' : 'flex'}`}>
+                                            <FaLaptopCode className="w-16 h-16 text-white/40" />
+                                        </div>
                                         <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">{p.category}</span>
                                     </div>
                                     <div className="p-5 flex flex-col flex-1">
@@ -337,7 +450,20 @@ function Portfolio() {
                                         </a>
                                     </div>
                                 </div>
-                            </FadeIn>
+                            )
+                        })()}
+                    </motion.div>
+                </div>
+
+                {/* Dot indicators */}
+                {portfolioItems.length > 1 && (
+                    <div className="flex justify-center gap-2 mt-8">
+                        {portfolioItems.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => goTo(i)}
+                                className={`h-2.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8 bg-gradient-to-r from-blue-600 to-violet-600' : 'w-2.5 bg-gray-300 hover:bg-gray-400'}`}
+                            />
                         ))}
                     </div>
                 )}
@@ -607,18 +733,20 @@ const packages = [
 ]
 
 function Pricing() {
-    const [packages, setPackages] = useState([])
-    const [loading, setLoading] = useState(true)
+    const fallbackPackages = [
+        { name: 'Basic Website', price: '₹15,000', type: 'One Time', features: ['5 Pages Responsive Website', 'Contact Form', 'SEO Optimized', 'Mobile Friendly', '1 Month Free Support', 'SSL Certificate'], featured: false },
+        { name: 'Business Website', price: '₹35,000', type: 'One Time', features: ['10+ Pages Dynamic Website', 'Admin Panel', 'Advanced SEO', 'Blog Integration', 'Social Media Integration', '3 Months Free Support', 'SSL + Analytics'], featured: true },
+        { name: 'App Development', price: 'Custom', type: 'Get a Quote', features: ['Android & iOS App', 'Custom UI/UX Design', 'Backend API Development', 'Push Notifications', 'Payment Integration', '6 Months Support', 'App Store Deployment'], featured: false },
+    ]
+    const [packages, setPackages] = useState(fallbackPackages)
 
     useEffect(() => {
         const fetchPricing = async () => {
             try {
                 const { data } = await api.get('/pricing')
-                setPackages(data)
+                if (data && data.length > 0) setPackages(data)
             } catch (error) {
                 console.error('Failed to fetch pricing', error)
-            } finally {
-                setLoading(false)
             }
         }
         fetchPricing()
@@ -635,53 +763,41 @@ function Pricing() {
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Transparent pricing with no hidden fees. Choose a plan that fits your needs.</p>
                     </div>
                 </FadeIn>
-                {loading ? (
-                    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        {[1, 2, 3].map((i) => (
-                            <div key={i} className="animate-pulse bg-gray-100 rounded-2xl h-80"></div>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        {(packages.length > 0 ? packages : [
-                            { name: 'Basic Website', price: '₹15,000', type: 'One Time', features: ['5 Pages Responsive Website', 'Contact Form', 'SEO Optimized', 'Mobile Friendly', '1 Month Free Support', 'SSL Certificate'], featured: false },
-                            { name: 'Business Website', price: '₹35,000', type: 'One Time', features: ['10+ Pages Dynamic Website', 'Admin Panel', 'Advanced SEO', 'Blog Integration', 'Social Media Integration', '3 Months Free Support', 'SSL + Analytics'], featured: true },
-                            { name: 'App Development', price: 'Custom', type: 'Get a Quote', features: ['Android & iOS App', 'Custom UI/UX Design', 'Backend API Development', 'Push Notifications', 'Payment Integration', '6 Months Support', 'App Store Deployment'], featured: false },
-                        ]).map((pkg, i) => (
-                            <FadeIn key={pkg.id || i} delay={i * 0.1}>
-                                <div className={`pricing-card rounded-2xl p-8 bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 ${pkg.featured ? 'shadow-2xl shadow-violet-500/20' : ''} h-full flex flex-col text-white`}>
-                                    {pkg.featured && (
-                                        <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-4 py-1 rounded-full mb-4 self-start">
-                                            MOST POPULAR
-                                        </span>
-                                    )}
-                                    <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
-                                    <div className="mt-4 mb-6">
-                                        <span className="text-4xl font-extrabold text-white">{pkg.price}</span>
-                                        <span className="text-violet-100 text-sm ml-2">/ {pkg.type}</span>
-                                    </div>
-                                    <ul className="space-y-3 mb-8 flex-1">
-                                        {(Array.isArray(pkg.features) ? pkg.features : (typeof pkg.features === 'string' ? JSON.parse(pkg.features) : [])).map((f, index) => (
-                                            <li key={index} className="flex items-start gap-2 text-blue-50 text-sm">
-                                                <FaCheck className="w-4 h-4 text-white mt-0.5 shrink-0 bg-white/20 rounded-full p-0.5" />
-                                                {f}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <a
-                                        href="#contact"
-                                        className={`block text-center py-3 px-6 rounded-xl font-semibold transition-all ${pkg.featured
-                                            ? 'bg-white text-violet-600 hover:shadow-lg hover:shadow-white/20'
-                                            : 'bg-white/10 text-white hover:bg-white/20'
-                                            }`}
-                                    >
-                                        Explore Package
-                                    </a>
+                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    {packages.map((pkg, i) => (
+                        <FadeIn key={pkg.id || i} delay={i * 0.1}>
+                            <div className={`pricing-card rounded-2xl p-8 bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 ${pkg.featured ? 'shadow-2xl shadow-violet-500/20' : ''} h-full flex flex-col text-white`}>
+                                {pkg.featured && (
+                                    <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-4 py-1 rounded-full mb-4 self-start">
+                                        MOST POPULAR
+                                    </span>
+                                )}
+                                <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
+                                <div className="mt-4 mb-6">
+                                    <span className="text-4xl font-extrabold text-white">{pkg.price}</span>
+                                    <span className="text-violet-100 text-sm ml-2">/ {pkg.type}</span>
                                 </div>
-                            </FadeIn>
-                        ))}
-                    </div>
-                )}
+                                <ul className="space-y-3 mb-8 flex-1">
+                                    {(Array.isArray(pkg.features) ? pkg.features : (typeof pkg.features === 'string' ? JSON.parse(pkg.features) : [])).map((f, index) => (
+                                        <li key={index} className="flex items-start gap-2 text-blue-50 text-sm">
+                                            <FaCheck className="w-4 h-4 text-white mt-0.5 shrink-0 bg-white/20 rounded-full p-0.5" />
+                                            {f}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a
+                                    href="#contact"
+                                    className={`block text-center py-3 px-6 rounded-xl font-semibold transition-all ${pkg.featured
+                                        ? 'bg-white text-violet-600 hover:shadow-lg hover:shadow-white/20'
+                                        : 'bg-white/10 text-white hover:bg-white/20'
+                                        }`}
+                                >
+                                    Explore Package
+                                </a>
+                            </div>
+                        </FadeIn>
+                    ))}
+                </div>
             </div>
         </section>
     )
@@ -750,33 +866,33 @@ function About() {
     return (
         <section id="about" className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="max-w-4xl mx-auto text-center">
                     <FadeIn>
                         <div>
                             <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">About Us</span>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">AppNest Technologies Pvt. Ltd</h2>
-                            <div className="section-divider mt-4" />
-                            <p className="mt-6 text-gray-600 leading-relaxed">
-                                Founded with a vision to empower businesses through technology, AppNest Technologies is a modern software agency specializing in web development, mobile app development, and digital solutions.
-                            </p>
-                            <p className="mt-4 text-gray-600 leading-relaxed">
-                                We combine creativity with cutting-edge technology to deliver digital products that not only look stunning but also drive real business results. Our team of skilled developers and designers is passionate about building software that makes a difference.
-                            </p>
-                            <div className="mt-8 grid grid-cols-2 gap-4">
-                                <div className="p-4 bg-blue-50 rounded-xl">
-                                    <h4 className="font-bold text-gray-900">Our Mission</h4>
-                                    <p className="text-gray-600 text-sm mt-1">To deliver innovative digital solutions that help businesses grow and thrive in the digital age.</p>
-                                </div>
-                                <div className="p-4 bg-cyan-50 rounded-xl">
-                                    <h4 className="font-bold text-gray-900">Our Values</h4>
-                                    <p className="text-gray-600 text-sm mt-1">Quality, Innovation, Transparency, and Long-term Partnership with our clients.</p>
-                                </div>
+                            <div className="section-divider mt-4 mx-auto" />
+
+                            <div className="mt-8 space-y-6 text-gray-600 leading-relaxed text-lg">
+                                <p>
+                                    Founded with a vision to empower businesses through technology, AppNest Technologies is a forward-thinking software agency dedicated to delivering innovative digital solutions that help organizations thrive in a rapidly evolving digital landscape. We specialize in web development, mobile application development, and customized software solutions tailored to meet the unique needs of startups, small businesses, and enterprises alike.
+                                </p>
+                                <p>
+                                    At AppNest Technologies, we believe that technology is more than just code—it’s a powerful tool to transform ideas into reality and drive meaningful growth. Our approach combines creativity, strategy, and cutting-edge technologies to build digital products that are not only visually appealing but also highly functional, scalable, and performance-driven. From intuitive user interfaces to robust backend systems, we ensure every solution is crafted with precision and purpose.
+                                </p>
+                                <p>
+                                    Our team consists of passionate developers, creative designers, and problem-solvers who are committed to excellence at every stage of the development process. We work closely with our clients to understand their goals, challenges, and vision, enabling us to deliver solutions that align perfectly with their business objectives. Whether it’s building a responsive website, developing a feature-rich mobile app, or creating a custom software platform, we focus on delivering quality, reliability, and innovation.
+                                </p>
+                                <p>
+                                    What sets us apart is our dedication to continuous improvement and staying ahead of industry trends. We leverage modern frameworks, best coding practices, and user-centric design principles to ensure our products remain competitive and future-ready. Our goal is not just to build software, but to create digital experiences that engage users, enhance brand value, and generate real business results.
+                                </p>
+                                <p>
+                                    At the core of AppNest Technologies is a commitment to building long-term partnerships. We strive to be more than just a service provider—we aim to be a trusted technology partner that supports our clients at every step of their digital journey.
+                                </p>
+                                <p className="text-violet-600 font-bold text-xl mt-10">
+                                    Let’s build something extraordinary together.
+                                </p>
                             </div>
-                        </div>
-                    </FadeIn>
-                    <FadeIn direction="right">
-                        <div className="bg-gradient-to-br from-blue-500/5 to-cyan-400/5 rounded-3xl p-8 flex items-center justify-center min-h-[400px]">
-                            <img src="/logo.png" alt="AppNest Team" className="w-64 h-64 object-contain opacity-80" />
                         </div>
                     </FadeIn>
                 </div>
