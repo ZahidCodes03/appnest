@@ -295,7 +295,11 @@ function Portfolio() {
                                     <div className={`h-48 bg-gray-900 flex items-center justify-center relative overflow-hidden shrink-0`}>
                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all" />
                                         {p.screenshot_url ? (
-                                            <img src={p.screenshot_url} alt={p.title} className="w-full h-full object-contain" />
+                                            <img
+                                                src={p.screenshot_url.startsWith('http') ? p.screenshot_url : `${import.meta.env.VITE_API_URL || ''}${p.screenshot_url}`}
+                                                alt={p.title}
+                                                className="w-full h-full object-contain"
+                                            />
                                         ) : (
                                             <FaLaptopCode className="w-16 h-16 text-white/40 group-hover:scale-110 transition-transform" />
                                         )}
@@ -611,7 +615,11 @@ function Pricing() {
                     </div>
                 </FadeIn>
                 {loading ? (
-                    <div className="text-center py-12 text-gray-500">Loading pricing...</div>
+                    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="animate-pulse bg-gray-100 rounded-2xl h-80"></div>
+                        ))}
+                    </div>
                 ) : packages.length === 0 ? (
                     <div className="text-center py-12 text-gray-500 bg-gray-50 rounded-2xl">Pricing details unavailable currently. Contact us for a quote!</div>
                 ) : (

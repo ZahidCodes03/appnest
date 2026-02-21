@@ -30,7 +30,7 @@ export default function WhatsAppButton() {
             rel="noopener noreferrer"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ delay: 2.5, type: 'spring' }}
+            transition={{ delay: 0.5, type: 'spring' }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             className={`fixed ${isAtFooter ? 'bottom-24' : 'bottom-6'} right-6 z-50 flex items-center gap-2 bg-green-500 text-white px-4 py-3 rounded-full shadow-lg shadow-green-500/30 hover:bg-green-600 transition-all duration-300 group`}
