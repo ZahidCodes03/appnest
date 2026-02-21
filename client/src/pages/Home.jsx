@@ -44,7 +44,7 @@ function Counter({ target, suffix = '', label }) {
     return (
         <div ref={ref} className="text-center">
             <div className="text-4xl md:text-5xl font-extrabold gradient-text">{count}{suffix}</div>
-            <div className="text-gray-600 mt-2 font-medium">{label}</div>
+            <div className="text-gray-400 mt-2 font-medium">{label}</div>
         </div>
     )
 }
@@ -162,25 +162,25 @@ const services = [
 
 function Services() {
     return (
-        <section id="services" className="py-20 md:py-28 bg-white">
+        <section id="services" className="py-20 md:py-28 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
                         <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">What We Do</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Our Services</h2>
-                        <div className="section-divider mx-auto mt-4" />
+                        <div className="section-divider mx-auto mt-4 bg-gradient-to-r from-blue-600 to-violet-600" />
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Comprehensive digital solutions to transform your business and drive growth.</p>
                     </div>
                 </FadeIn>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {services.map((s, i) => (
                         <FadeIn key={s.title} delay={i * 0.08}>
-                            <div className="service-card bg-white rounded-2xl p-6 border border-gray-100 hover:border-blue-200 h-full">
-                                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mb-5 text-white shadow-lg shadow-blue-500/20">
+                            <div className="service-card bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-6 border border-blue-400/30 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 h-full group">
+                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 text-blue-600 shadow-lg group-hover:scale-110 transition-transform">
                                     <s.icon className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">{s.title}</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
+                                <h3 className="text-lg font-bold text-white mb-2">{s.title}</h3>
+                                <p className="text-blue-50 text-sm leading-relaxed">{s.desc}</p>
                             </div>
                         </FadeIn>
                     ))}
@@ -202,25 +202,25 @@ const features = [
 
 function WhyChoose() {
     return (
-        <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-20 md:py-28 bg-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
                         <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Why Us</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Why Choose AppNest?</h2>
-                        <div className="section-divider mx-auto mt-4" />
+                        <div className="section-divider mx-auto mt-4 bg-gradient-to-r from-blue-600 to-violet-600" />
                     </div>
                 </FadeIn>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                     {features.map((f, i) => (
                         <FadeIn key={f.title} delay={i * 0.08}>
-                            <div className="flex gap-4 p-6 rounded-2xl hover:bg-white hover:shadow-lg transition-all duration-300 group">
-                                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all">
-                                    <f.icon className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" />
+                            <div className="flex gap-4 p-6 rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 shadow-xl transition-all duration-300 group">
+                                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center shrink-0 transition-all">
+                                    <f.icon className="w-5 h-5 text-white transition-colors" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-gray-900">{f.title}</h3>
-                                    <p className="text-gray-600 text-sm mt-1">{f.desc}</p>
+                                    <h3 className="font-bold text-white transition-colors">{f.title}</h3>
+                                    <p className="text-blue-50 text-sm mt-1 transition-colors">{f.desc}</p>
                                 </div>
                             </div>
                         </FadeIn>
@@ -282,23 +282,34 @@ function Portfolio() {
                     </div>
                 </FadeIn>
                 {loading ? (
-                    <div className="text-center py-12 text-gray-500">Loading awesome projects...</div>
-                ) : portfolioItems.length === 0 ? (
-                    <div className="text-center py-12 text-gray-500 bg-gray-50 rounded-2xl">
-                        Our portfolio is being updated. Check back soon!
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="animate-pulse bg-gray-100 rounded-2xl h-80"></div>
+                        ))}
                     </div>
                 ) : (
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {portfolioItems.map((p, i) => (
+                        {(portfolioItems.length > 0 ? portfolioItems : [
+                            { title: 'Modern E-Commerce', tech: 'React, Node.js, PostgreSQL', category: 'Web Development', description: 'A full-featured online store with payment gateway integration and real-time inventory.', screenshot_url: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80', demo_url: '#' },
+                            { title: 'HealthSync App', tech: 'React Native, Firebase', category: 'Mobile App', description: 'Comprehensive health tracking app with telemedicine integration and live consultation.', screenshot_url: 'https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80', demo_url: '#' },
+                            { title: 'EduPro LMS', tech: 'Next.js, Tailwind, Prisma', category: 'Web Application', description: 'Institutional learning management system with video streaming and interactive quizzes.', screenshot_url: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80', demo_url: '#' },
+                        ]).map((p, i) => (
                             <FadeIn key={p.id || i} delay={i * 0.08}>
-                                <div className="group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-500 h-full flex flex-col">
+                                <div className="group rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 h-full flex flex-col">
                                     <div className={`h-48 bg-gray-900 flex items-center justify-center relative overflow-hidden shrink-0`}>
                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all" />
                                         {p.screenshot_url ? (
                                             <img
-                                                src={p.screenshot_url.startsWith('http') ? p.screenshot_url : `${import.meta.env.VITE_API_URL || ''}${p.screenshot_url}`}
+                                                src={(() => {
+                                                    let url = p.screenshot_url;
+                                                    if (url.includes('localhost')) {
+                                                        const parts = url.split('/uploads/');
+                                                        if (parts[1]) url = `/uploads/${parts[1]}`;
+                                                    }
+                                                    return url.startsWith('http') ? url : `${import.meta.env.VITE_API_URL || ''}${url}`;
+                                                })()}
                                                 alt={p.title}
-                                                className="w-full h-full object-contain"
+                                                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                                             />
                                         ) : (
                                             <FaLaptopCode className="w-16 h-16 text-white/40 group-hover:scale-110 transition-transform" />
@@ -306,14 +317,12 @@ function Portfolio() {
                                         <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">{p.category}</span>
                                     </div>
                                     <div className="p-5 flex flex-col flex-1">
-                                        <h3 className="font-bold text-gray-900 text-lg">{p.title}</h3>
-                                        <p className="text-gray-500 text-sm mt-1">{p.tech}</p>
-                                        <p className="text-gray-600 text-sm mt-3 line-clamp-3 mb-4 flex-1">{p.description}</p>
-                                        {p.demo_url && (
-                                            <a href={p.demo_url} target="_blank" rel="noopener noreferrer" className="mt-auto text-blue-600 text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-                                                View Details <FaArrowRight className="w-3 h-3" />
-                                            </a>
-                                        )}
+                                        <h3 className="font-bold text-white text-lg">{p.title}</h3>
+                                        <p className="text-blue-100 text-xs mt-1 font-medium">{p.tech}</p>
+                                        <p className="text-blue-50 text-sm mt-3 line-clamp-3 mb-4 flex-1">{p.description}</p>
+                                        <a href={p.demo_url || '#'} target="_blank" rel="noopener noreferrer" className="mt-auto text-white text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all">
+                                            View Details <FaArrowRight className="w-3 h-3" />
+                                        </a>
                                     </div>
                                 </div>
                             </FadeIn>
@@ -529,27 +538,27 @@ const steps = [
 
 function ProcessTimeline() {
     return (
-        <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-20 md:py-28 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
                         <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">How We Work</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Our Process</h2>
-                        <div className="section-divider mx-auto mt-4" />
+                        <div className="section-divider mx-auto mt-4 bg-gradient-to-r from-blue-600 to-violet-600" />
                     </div>
                 </FadeIn>
                 <div className="max-w-3xl mx-auto relative">
-                    <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-cyan-400" />
+                    <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-blue-600" />
                     {steps.map((step, i) => (
                         <FadeIn key={step.title} delay={i * 0.1} direction={i % 2 === 0 ? 'right' : 'left'}>
                             <div className={`relative flex items-start gap-6 md:gap-24 mb-12 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:text-${i % 2 === 0 ? 'right' : 'left'}`}>
                                 <div className="hidden md:block flex-1" />
-                                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30 z-10">
+                                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-blue-600 to-violet-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30 z-10">
                                     {i + 1}
                                 </div>
-                                <div className="flex-1 ml-16 md:ml-0 bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                                    <h3 className="font-bold text-gray-900 text-lg">{step.title}</h3>
-                                    <p className="text-gray-600 text-sm mt-1">{step.desc}</p>
+                                <div className="flex-1 ml-16 md:ml-0 bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-6 shadow-lg border border-blue-400/30 hover:shadow-blue-500/20 transition-all duration-300">
+                                    <h3 className="font-bold text-white text-lg">{step.title}</h3>
+                                    <p className="text-blue-50 text-sm mt-1">{step.desc}</p>
                                 </div>
                             </div>
                         </FadeIn>
@@ -620,27 +629,29 @@ function Pricing() {
                             <div key={i} className="animate-pulse bg-gray-100 rounded-2xl h-80"></div>
                         ))}
                     </div>
-                ) : packages.length === 0 ? (
-                    <div className="text-center py-12 text-gray-500 bg-gray-50 rounded-2xl">Pricing details unavailable currently. Contact us for a quote!</div>
                 ) : (
                     <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        {packages.map((pkg, i) => (
+                        {(packages.length > 0 ? packages : [
+                            { name: 'Basic Website', price: '₹15,000', type: 'One Time', features: ['5 Pages Responsive Website', 'Contact Form', 'SEO Optimized', 'Mobile Friendly', '1 Month Free Support', 'SSL Certificate'], featured: false },
+                            { name: 'Business Website', price: '₹35,000', type: 'One Time', features: ['10+ Pages Dynamic Website', 'Admin Panel', 'Advanced SEO', 'Blog Integration', 'Social Media Integration', '3 Months Free Support', 'SSL + Analytics'], featured: true },
+                            { name: 'App Development', price: 'Custom', type: 'Get a Quote', features: ['Android & iOS App', 'Custom UI/UX Design', 'Backend API Development', 'Push Notifications', 'Payment Integration', '6 Months Support', 'App Store Deployment'], featured: false },
+                        ]).map((pkg, i) => (
                             <FadeIn key={pkg.id || i} delay={i * 0.1}>
-                                <div className={`pricing-card rounded-2xl p-8 bg-white border ${pkg.featured ? 'featured shadow-xl shadow-blue-500/10' : 'border-gray-200'} h-full flex flex-col`}>
+                                <div className={`pricing-card rounded-2xl p-8 bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 ${pkg.featured ? 'shadow-2xl shadow-blue-500/20' : ''} h-full flex flex-col text-white`}>
                                     {pkg.featured && (
-                                        <span className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-xs font-bold px-4 py-1 rounded-full mb-4 self-start">
+                                        <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-4 py-1 rounded-full mb-4 self-start">
                                             MOST POPULAR
                                         </span>
                                     )}
-                                    <h3 className="text-xl font-bold text-gray-900">{pkg.name}</h3>
+                                    <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
                                     <div className="mt-4 mb-6">
-                                        <span className="text-4xl font-extrabold gradient-text">{pkg.price}</span>
-                                        <span className="text-gray-500 text-sm ml-2">/ {pkg.type}</span>
+                                        <span className="text-4xl font-extrabold text-white">{pkg.price}</span>
+                                        <span className="text-blue-100 text-sm ml-2">/ {pkg.type}</span>
                                     </div>
                                     <ul className="space-y-3 mb-8 flex-1">
                                         {(Array.isArray(pkg.features) ? pkg.features : (typeof pkg.features === 'string' ? JSON.parse(pkg.features) : [])).map((f, index) => (
-                                            <li key={index} className="flex items-start gap-2 text-gray-600 text-sm">
-                                                <FaCheck className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                                            <li key={index} className="flex items-start gap-2 text-blue-50 text-sm">
+                                                <FaCheck className="w-4 h-4 text-white mt-0.5 shrink-0 bg-white/20 rounded-full p-0.5" />
                                                 {f}
                                             </li>
                                         ))}
@@ -648,8 +659,8 @@ function Pricing() {
                                     <a
                                         href="#contact"
                                         className={`block text-center py-3 px-6 rounded-xl font-semibold transition-all ${pkg.featured
-                                            ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:shadow-lg hover:shadow-blue-500/30'
-                                            : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                                            ? 'bg-white text-blue-600 hover:shadow-lg hover:shadow-white/20'
+                                            : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
                                             }`}
                                     >
                                         Request Full Pricing

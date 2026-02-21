@@ -39,7 +39,17 @@ async function seed() {
             ['App Development', 'Custom', 'Get a Quote', ['Android & iOS App', 'Custom UI/UX Design', 'Backend API', 'Push Notifications', 'Payment Integration', '6 Months Support', 'App Store Deployment'], false],
         ]
         for (const [name, price, type, features, featured] of pkgs) {
-            await pool.query('INSERT INTO pricing_packages (name, price, type, features, featured) VALUES ($1,$2,$3,$4,$5)', [name, price, type, features, featured])
+            await pool.query('INSERT INTO pricing_packages (name, price, type, features, featured) VALUES ($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING', [name, price, type, features, featured])
+        }
+
+        // Seed portfolio
+        const projects = [
+            ['Modern E-Commerce', 'React, Node.js, PostgreSQL', 'Web Development', 'A full-featured online store with payment gateway integration and real-time inventory.', 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80', 'https://example.com'],
+            ['HealthSync App', 'React Native, Firebase', 'Mobile App', 'Comprehensive health tracking app with telemedicine integration and live consultation.', 'https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80', 'https://example.com'],
+            ['EduPro LMS', 'Next.js, Tailwind, Prisma', 'Web Application', 'Institutional learning management system with video streaming and interactive quizzes.', 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80', 'https://example.com'],
+        ]
+        for (const [title, tech, category, description, screenshot_url, demo_url] of projects) {
+            await pool.query('INSERT INTO portfolio (title, tech, category, description, screenshot_url, demo_url) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT DO NOTHING', [title, tech, category, description, screenshot_url, demo_url])
         }
 
         console.log('✅ Seeding complete!')
