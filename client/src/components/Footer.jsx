@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa'
 
 const quickLinks = [
     { name: 'Home', href: '/#home' },
@@ -20,9 +20,7 @@ const services = [
 ]
 
 const socials = [
-    { icon: FaFacebookF, href: '#', label: 'Facebook' },
-    { icon: FaTwitter, href: '#', label: 'Twitter' },
-    { icon: FaLinkedinIn, href: '#', label: 'LinkedIn' },
+    { icon: FaWhatsapp, href: 'https://wa.me/916006642157', label: 'Whatsapp' },
     { icon: FaInstagram, href: 'https://www.instagram.com/_zahiiiiiii', label: 'Instagram' },
 ]
 
