@@ -50,7 +50,7 @@ export default function Navbar() {
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-blue-500/5'
+                ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-violet-500/5'
                 : 'bg-transparent'
                 }`}
         >
@@ -74,7 +74,7 @@ export default function Navbar() {
                                     e.preventDefault()
                                     handleNavClick(link.href)
                                 }}
-                                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-violet-50 transition-all duration-200"
                             >
                                 {link.name}
                             </a>
@@ -115,7 +115,7 @@ export default function Navbar() {
                                         e.preventDefault()
                                         handleNavClick(link.href)
                                     }}
-                                    className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium"
+                                    className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-violet-50 font-medium"
                                 >
                                     {link.name}
                                 </a>

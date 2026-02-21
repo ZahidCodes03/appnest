@@ -54,7 +54,7 @@ export default function BlogDetail() {
                     >
                         <Link
                             to="/"
-                            className="inline-flex items-center gap-2 text-blue-600 font-bold text-sm hover:gap-3 transition-all mb-4"
+                            className="inline-flex items-center gap-2 text-violet-600 font-bold text-sm hover:gap-3 transition-all mb-4"
                         >
                             <FaArrowLeft className="w-4 h-4" /> Back to Home
                         </Link>
@@ -73,12 +73,12 @@ export default function BlogDetail() {
                                 })}
                             </div>
                             <div className="flex items-center gap-2">
-                                <FaUser className="text-blue-500" />
+                                <FaUser className="text-violet-500" />
                                 Admin
                             </div>
                             <div className="flex items-center gap-2">
-                                <FaClock className="text-blue-500" />
-                                5 min read
+                                <FaClock className="text-violet-500" />
+                                <span>{blog.reading_time || '5 min'} read</span>
                             </div>
                         </div>
                     </motion.div>
@@ -100,7 +100,7 @@ export default function BlogDetail() {
 
                 {/* Footer / Call to Action */}
                 <div className="mt-16 pt-16 border-t border-gray-100">
-                    <div className="bg-gradient-to-br from-blue-600 to-cyan-500 rounded-3xl p-8 md:p-12 text-white text-center">
+                    <div className="bg-gradient-to-br from-blue-600 to-violet-600 rounded-3xl p-8 md:p-12 text-white text-center">
                         <h3 className="text-2xl md:text-3xl font-bold mb-4">Have a project in mind?</h3>
                         <p className="text-white/80 mb-8 max-w-xl mx-auto text-lg leading-relaxed">
                             Let's build something amazing together. Our expert team is ready to transform your ideas into reality.

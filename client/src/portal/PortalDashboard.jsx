@@ -24,7 +24,7 @@ export default function PortalDashboard() {
     }, [])
 
     const statCards = [
-        { label: 'Active Projects', value: stats.active_projects, icon: HiOutlineFolder, bg: 'bg-blue-50', color: 'text-blue-600' },
+        { label: 'Active Projects', value: stats.active_projects, icon: HiOutlineFolder, bg: 'bg-violet-50', color: 'text-violet-600' },
         { label: 'Pending Invoices', value: stats.pending_invoices, icon: HiOutlineDocumentText, bg: 'bg-amber-50', color: 'text-amber-600' },
         { label: 'In Progress', value: stats.in_progress, icon: HiOutlineClock, bg: 'bg-purple-50', color: 'text-purple-600' },
         { label: 'Completed', value: stats.completed_projects, icon: HiOutlineCheckCircle, bg: 'bg-green-50', color: 'text-green-600' },

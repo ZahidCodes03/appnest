@@ -59,7 +59,7 @@ export default function SupportTickets() {
         finally { setSending(false) }
     }
 
-    const statusColors = { open: 'bg-blue-100 text-blue-700', in_progress: 'bg-amber-100 text-amber-700', resolved: 'bg-green-100 text-green-700' }
+    const statusColors = { open: 'bg-violet-100 text-violet-700', in_progress: 'bg-amber-100 text-amber-700', resolved: 'bg-green-100 text-green-700' }
     const priorityColors = { low: 'text-gray-500', medium: 'text-amber-600', high: 'text-red-600' }
 
     if (loading) return <div className="text-center p-8">Loading tickets...</div>
@@ -87,10 +87,10 @@ export default function SupportTickets() {
                                 <div
                                     key={t.id}
                                     onClick={() => openTicket(t)}
-                                    className={`p-4 cursor-pointer hover:bg-gray-50 transition-colors ${selectedTicket?.id === t.id ? 'bg-blue-50' : ''}`}
+                                    className={`p-4 cursor-pointer hover:bg-gray-50 transition-colors ${selectedTicket?.id === t.id ? 'bg-violet-50' : ''}`}
                                 >
                                     <div className="flex justify-between items-start mb-1">
-                                        <h3 className={`font-medium text-sm ${selectedTicket?.id === t.id ? 'text-blue-900' : 'text-gray-900'}`}>{t.subject}</h3>
+                                        <h3 className={`font-medium text-sm ${selectedTicket?.id === t.id ? 'text-violet-900' : 'text-gray-900'}`}>{t.subject}</h3>
                                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[t.status]}`}>{t.status.replace('_', ' ')}</span>
                                     </div>
                                     <p className="text-xs text-gray-500 line-clamp-2 mb-2">{t.description}</p>
@@ -165,7 +165,7 @@ export default function SupportTickets() {
                             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
                                 {/* Original Ticket */}
                                 <div className="flex gap-3 flex-row-reverse">
-                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold shrink-0">
+                                    <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 font-bold shrink-0">
                                         You
                                     </div>
                                     <div className="bg-white p-3 rounded-2xl rounded-tr-none shadow-sm border border-gray-100 max-w-[85%]">
@@ -177,7 +177,7 @@ export default function SupportTickets() {
                                 {/* Replies */}
                                 {selectedTicket.replies?.map(r => (
                                     <div key={r.id} className={`flex gap-3 ${r.user_role === 'client' ? 'flex-row-reverse' : ''}`}>
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 ${r.user_role === 'admin' ? 'bg-indigo-600 text-white' : 'bg-blue-100 text-blue-600'}`}>
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 ${r.user_role === 'admin' ? 'bg-indigo-600 text-white' : 'bg-violet-100 text-violet-600'}`}>
                                             {r.user_role === 'admin' ? 'A' : 'You'}
                                         </div>
                                         <div className={`p-3 rounded-2xl shadow-sm border max-w-[85%] ${r.user_role === 'admin' ? 'bg-indigo-600 text-white rounded-tl-none border-indigo-600' : 'bg-white text-gray-700 rounded-tr-none border-gray-100'}`}>
@@ -196,7 +196,7 @@ export default function SupportTickets() {
                                         value={reply}
                                         onChange={(e) => setReply(e.target.value)}
                                         placeholder="Type a reply..."
-                                        className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                        className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500"
                                     />
                                     <button
                                         type="submit"

@@ -32,13 +32,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
   border-radius: 4px;
 }
 
 /* ===== Gradient Text ===== */
 .gradient-text {
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -76,7 +76,7 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
   transform: scaleX(0);
   transition: transform 0.4s;
 }
@@ -102,7 +102,7 @@ body {
 .section-divider {
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
   border-radius: 2px;
 }
 
@@ -142,7 +142,7 @@ body {
 .particle {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.15));
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(124, 58, 237, 0.15));
   animation: float 8s ease-in-out infinite;
 }
 
@@ -160,9 +160,20 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
+/* ===== Icon Gradient & Hover Fix ===== */
+.icon-gradient {
+  fill: url(#star-gradient);
+  transition: all 0.3s ease;
+}
+
+.group:hover .icon-gradient {
+  fill: white !important;
+}
+
+
 /* ===== Button Gradients ===== */
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
   color: white;
   padding: 12px 32px;
   border-radius: 12px;
@@ -176,19 +187,19 @@ select:focus {
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, #1d4ed8, #6d28d9);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
 }
 
 .btn-secondary {
   background: white;
-  color: #3b82f6;
+  color: #2563eb;
   padding: 12px 32px;
   border-radius: 12px;
   font-weight: 600;
   transition: all 0.3s ease;
-  border: 2px solid #3b82f6;
+  border: 2px solid #2563eb;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -203,7 +214,7 @@ select:focus {
 
 /* ===== Timeline ===== */
 .timeline-line {
-  background: linear-gradient(180deg, #3b82f6, #06b6d4);
+  background: linear-gradient(180deg, #2563eb, #7c3aed);
 }
 
 /* ===== Testimonial Card ===== */

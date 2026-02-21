@@ -55,8 +55,8 @@ export default function Messages() {
                     return (
                         <motion.div key={msg.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                             className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${isMe ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-900'}`}>
-                                <div className={`text-xs font-medium mb-1 ${isMe ? 'text-blue-100' : 'text-blue-600'}`}>{isMe ? 'You' : 'AppNest Team'}</div>
+                            <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${isMe ? 'bg-gradient-to-br from-blue-600 to-violet-600 text-white' : 'bg-white border border-gray-200 text-gray-900'}`}>
+                                <div className={`text-xs font-medium mb-1 ${isMe ? 'text-blue-100' : 'text-violet-600'}`}>{isMe ? 'You' : 'AppNest Team'}</div>
                                 <p className="text-sm">{msg.text}</p>
                                 <div className={`text-xs mt-1.5 ${isMe ? 'text-blue-200' : 'text-gray-400'}`}>{new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                             </div>

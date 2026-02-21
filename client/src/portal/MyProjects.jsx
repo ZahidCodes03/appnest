@@ -36,7 +36,7 @@ export default function MyProjects() {
 
                     <div className="flex items-center gap-3 mb-6">
                         <div className="flex-1 bg-gray-100 rounded-full h-3">
-                            <div className="bg-gradient-to-r from-blue-500 to-cyan-400 h-3 rounded-full transition-all" style={{ width: `${project.progress || 0}%` }} />
+                            <div className="bg-gradient-to-r from-blue-600 to-violet-600 h-3 rounded-full transition-all" style={{ width: `${project.progress || 0}%` }} />
                         </div>
                         <span className="text-sm font-bold text-gray-700">{project.progress || 0}%</span>
                     </div>

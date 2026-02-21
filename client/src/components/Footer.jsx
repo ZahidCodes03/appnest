@@ -28,15 +28,15 @@ export default function Footer() {
     return (
         <footer className="bg-gray-900 text-gray-300">
             {/* Top CTA Bar */}
-            <div className="bg-gradient-to-r from-blue-600 to-cyan-500">
+            <div className="bg-gradient-to-r from-blue-600 to-violet-600">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
                         <h3 className="text-xl md:text-2xl font-bold text-white">Ready to Start Your Project?</h3>
-                        <p className="text-blue-100 mt-1">Let's build something amazing together.</p>
+                        <p className="text-violet-100 mt-1">Let's build something amazing together.</p>
                     </div>
                     <a
                         href="/#contact"
-                        className="bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg"
+                        className="bg-white text-violet-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg"
                     >
                         Get a Free Quote
                     </a>

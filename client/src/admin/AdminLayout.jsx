@@ -112,7 +112,7 @@ export default function AdminLayout() {
                         </h1>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center text-white text-sm font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                             {user?.name?.[0] || 'A'}
                         </div>
                     </div>

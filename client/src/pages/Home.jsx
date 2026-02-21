@@ -23,6 +23,18 @@ function FadeIn({ children, delay = 0, direction = 'up', className = '' }) {
     )
 }
 
+/* ========== Star Gradient Definition ========== */
+const StarGradient = () => (
+    <svg width="0" height="0" className="absolute">
+        <defs>
+            <linearGradient id="star-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#2563eb" />
+                <stop offset="100%" stopColor="#7c3aed" />
+            </linearGradient>
+        </defs>
+    </svg>
+)
+
 /* ========== Animated Counter ========== */
 function Counter({ target, suffix = '', label }) {
     const ref = useRef(null)
@@ -72,7 +84,7 @@ function Hero() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <FadeIn>
-                            <span className="inline-block bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+                            <span className="inline-block bg-violet-100 text-violet-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
                                 🚀 #1 Software Agency
                             </span>
                         </FadeIn>
@@ -98,7 +110,7 @@ function Hero() {
                                 </a>
                                 <button
                                     onClick={() => document.getElementById('lead-modal')?.classList.remove('hidden')}
-                                    className="flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors px-4 py-3"
+                                    className="flex items-center gap-2 text-violet-600 font-semibold hover:text-violet-700 transition-colors px-4 py-3"
                                 >
                                     <FaDownload /> Download Proposal
                                 </button>
@@ -107,7 +119,7 @@ function Hero() {
                     </div>
                     <FadeIn delay={0.4} direction="right">
                         <div className="relative hidden lg:block">
-                            <div className="w-full h-96 bg-gradient-to-br from-blue-500/10 to-cyan-400/10 rounded-3xl flex items-center justify-center">
+                            <div className="w-full h-96 bg-gradient-to-br from-violet-500/10 to-cyan-400/10 rounded-3xl flex items-center justify-center">
                                 <img src="/logo.png" alt="AppNest Technologies" className="w-48 h-48 object-contain animate-float" />
                             </div>
                             {/* Floating cards */}
@@ -132,7 +144,7 @@ function Hero() {
                                 className="absolute -bottom-4 -left-4 glass-card rounded-2xl p-4 shadow-xl"
                             >
                                 <div className="flex items-center gap-2">
-                                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <div className="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center">
                                         <FaStar className="w-4 h-4 text-blue-600" />
                                     </div>
                                     <div>
@@ -166,7 +178,7 @@ function Services() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">What We Do</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">What We Do</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Our Services</h2>
                         <div className="section-divider mx-auto mt-4 bg-gradient-to-r from-blue-600 to-violet-600" />
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Comprehensive digital solutions to transform your business and drive growth.</p>
@@ -175,8 +187,8 @@ function Services() {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {services.map((s, i) => (
                         <FadeIn key={s.title} delay={i * 0.08}>
-                            <div className="service-card bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-6 border border-blue-400/30 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 h-full group">
-                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 text-blue-600 shadow-lg group-hover:scale-110 transition-transform">
+                            <div className="service-card bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-6 border border-blue-400/30 hover:shadow-2xl hover:shadow-violet-500/20 transition-all duration-300 h-full group">
+                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 text-violet-600 shadow-lg group-hover:scale-110 transition-transform">
                                     <s.icon className="w-6 h-6" />
                                 </div>
                                 <h3 className="text-lg font-bold text-white mb-2">{s.title}</h3>
@@ -206,7 +218,7 @@ function WhyChoose() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Why Us</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Why Us</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Why Choose AppNest?</h2>
                         <div className="section-divider mx-auto mt-4 bg-gradient-to-r from-blue-600 to-violet-600" />
                     </div>
@@ -275,7 +287,7 @@ function Portfolio() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Our Work</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Our Work</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Portfolio</h2>
                         <div className="section-divider mx-auto mt-4" />
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Showcasing our best projects across various industries.</p>
@@ -295,9 +307,9 @@ function Portfolio() {
                             { title: 'EduPro LMS', tech: 'Next.js, Tailwind, Prisma', category: 'Web Application', description: 'Institutional learning management system with video streaming and interactive quizzes.', screenshot_url: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80', demo_url: '#' },
                         ]).map((p, i) => (
                             <FadeIn key={p.id || i} delay={i * 0.08}>
-                                <div className="group rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 h-full flex flex-col">
+                                <div className="group rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 shadow-lg transition-all duration-300 h-full flex flex-col">
                                     <div className={`h-48 bg-gray-900 flex items-center justify-center relative overflow-hidden shrink-0`}>
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all" />
+                                        <div className="absolute inset-0 bg-black/5" />
                                         {p.screenshot_url ? (
                                             <img
                                                 src={(() => {
@@ -309,16 +321,16 @@ function Portfolio() {
                                                     return url.startsWith('http') ? url : `${import.meta.env.VITE_API_URL || ''}${url}`;
                                                 })()}
                                                 alt={p.title}
-                                                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                                                className="w-full h-full object-contain"
                                             />
                                         ) : (
-                                            <FaLaptopCode className="w-16 h-16 text-white/40 group-hover:scale-110 transition-transform" />
+                                            <FaLaptopCode className="w-16 h-16 text-white/40" />
                                         )}
                                         <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">{p.category}</span>
                                     </div>
                                     <div className="p-5 flex flex-col flex-1">
                                         <h3 className="font-bold text-white text-lg">{p.title}</h3>
-                                        <p className="text-blue-100 text-xs mt-1 font-medium">{p.tech}</p>
+                                        <p className="text-violet-100 text-xs mt-1 font-medium">{p.tech}</p>
                                         <p className="text-blue-50 text-sm mt-3 line-clamp-3 mb-4 flex-1">{p.description}</p>
                                         <a href={p.demo_url || '#'} target="_blank" rel="noopener noreferrer" className="mt-auto text-white text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all">
                                             View Details <FaArrowRight className="w-3 h-3" />
@@ -350,7 +362,7 @@ function Industries() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Who We Serve</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Who We Serve</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Industries We Serve</h2>
                         <div className="section-divider mx-auto mt-4" />
                     </div>
@@ -359,8 +371,8 @@ function Industries() {
                     {industries.map((ind, i) => (
                         <FadeIn key={ind.name} delay={i * 0.08}>
                             <div className="text-center p-6 rounded-2xl hover:bg-white hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                                <div className="w-16 h-16 mx-auto mb-4 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all">
-                                    <ind.icon className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors" />
+                                <div className="w-16 h-16 mx-auto mb-4 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-blue-600 group-hover:to-violet-600 transition-all">
+                                    <ind.icon className="w-7 h-7 icon-gradient" />
                                 </div>
                                 <h3 className="font-semibold text-gray-900 text-sm">{ind.name}</h3>
                             </div>
@@ -405,7 +417,7 @@ function Testimonials() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Testimonials</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">What Our Clients Say</h2>
                         <div className="section-divider mx-auto mt-4" />
                     </div>
@@ -424,12 +436,12 @@ function Testimonials() {
                                 <p className="text-gray-700 text-lg leading-relaxed mb-6">"{testimonials[current].feedback}"</p>
                                 <div className="flex items-center gap-1 mb-3">
                                     {[...Array(testimonials[current].rating)].map((_, i) => (
-                                        <FaStar key={i} className="w-5 h-5 text-yellow-400" />
+                                        <FaStar key={i} className="w-5 h-5 icon-gradient" />
                                     ))}
                                 </div>
                                 <div>
                                     <div className="font-bold text-gray-900">{testimonials[current].name}</div>
-                                    <div className="text-blue-600 text-sm">{testimonials[current].business}</div>
+                                    <div className="text-violet-600 text-sm">{testimonials[current].business}</div>
                                 </div>
                             </motion.div>
                             {/* Dots */}
@@ -438,7 +450,7 @@ function Testimonials() {
                                     <button
                                         key={i}
                                         onClick={() => setCurrent(i)}
-                                        className={`w-3 h-3 rounded-full transition-all ${i === current ? 'bg-blue-600 w-8' : 'bg-blue-200'}`}
+                                        className={`w-3 h-3 rounded-full transition-all ${i === current ? 'bg-violet-600 w-8' : 'bg-violet-200'}`}
                                     />
                                 ))}
                             </div>
@@ -474,7 +486,7 @@ function ReviewForm() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-12">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Share Your Experience</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Share Your Experience</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Leave Us a Review</h2>
                         <div className="section-divider mx-auto mt-4" />
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Your feedback helps us improve. Share your experience working with AppNest Technologies.</p>
@@ -504,9 +516,9 @@ function ReviewForm() {
                                         type="button"
                                         key={r}
                                         onClick={() => setForm({ ...form, rating: r })}
-                                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${form.rating >= r ? 'bg-yellow-400 text-white shadow-md shadow-yellow-400/30' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}
+                                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${form.rating >= r ? 'bg-gradient-to-br from-blue-600/10 to-violet-600/10 border-blue-200 shadow-sm' : 'bg-gray-100 text-gray-400 hover:bg-gray-200 border-transparent'} border group`}
                                     >
-                                        <FaStar className="w-5 h-5" />
+                                        <FaStar className={`w-5 h-5 ${form.rating >= r ? 'icon-gradient' : ''}`} />
                                     </button>
                                 ))}
                             </div>
@@ -542,21 +554,21 @@ function ProcessTimeline() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">How We Work</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">How We Work</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Our Process</h2>
                         <div className="section-divider mx-auto mt-4 bg-gradient-to-r from-blue-600 to-violet-600" />
                     </div>
                 </FadeIn>
                 <div className="max-w-3xl mx-auto relative">
-                    <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-blue-600" />
+                    <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-violet-600" />
                     {steps.map((step, i) => (
                         <FadeIn key={step.title} delay={i * 0.1} direction={i % 2 === 0 ? 'right' : 'left'}>
                             <div className={`relative flex items-start gap-6 md:gap-24 mb-12 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:text-${i % 2 === 0 ? 'right' : 'left'}`}>
                                 <div className="hidden md:block flex-1" />
-                                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-blue-600 to-violet-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30 z-10">
+                                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-blue-600 to-violet-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-violet-500/30 z-10">
                                     {i + 1}
                                 </div>
-                                <div className="flex-1 ml-16 md:ml-0 bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-6 shadow-lg border border-blue-400/30 hover:shadow-blue-500/20 transition-all duration-300">
+                                <div className="flex-1 ml-16 md:ml-0 bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-6 shadow-lg border border-blue-400/30 hover:shadow-violet-500/20 transition-all duration-300">
                                     <h3 className="font-bold text-white text-lg">{step.title}</h3>
                                     <p className="text-blue-50 text-sm mt-1">{step.desc}</p>
                                 </div>
@@ -617,7 +629,7 @@ function Pricing() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Pricing</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Pricing</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Our Packages</h2>
                         <div className="section-divider mx-auto mt-4" />
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Transparent pricing with no hidden fees. Choose a plan that fits your needs.</p>
@@ -637,7 +649,7 @@ function Pricing() {
                             { name: 'App Development', price: 'Custom', type: 'Get a Quote', features: ['Android & iOS App', 'Custom UI/UX Design', 'Backend API Development', 'Push Notifications', 'Payment Integration', '6 Months Support', 'App Store Deployment'], featured: false },
                         ]).map((pkg, i) => (
                             <FadeIn key={pkg.id || i} delay={i * 0.1}>
-                                <div className={`pricing-card rounded-2xl p-8 bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 ${pkg.featured ? 'shadow-2xl shadow-blue-500/20' : ''} h-full flex flex-col text-white`}>
+                                <div className={`pricing-card rounded-2xl p-8 bg-gradient-to-br from-blue-600 to-violet-600 border border-blue-400/30 ${pkg.featured ? 'shadow-2xl shadow-violet-500/20' : ''} h-full flex flex-col text-white`}>
                                     {pkg.featured && (
                                         <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-4 py-1 rounded-full mb-4 self-start">
                                             MOST POPULAR
@@ -646,7 +658,7 @@ function Pricing() {
                                     <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
                                     <div className="mt-4 mb-6">
                                         <span className="text-4xl font-extrabold text-white">{pkg.price}</span>
-                                        <span className="text-blue-100 text-sm ml-2">/ {pkg.type}</span>
+                                        <span className="text-violet-100 text-sm ml-2">/ {pkg.type}</span>
                                     </div>
                                     <ul className="space-y-3 mb-8 flex-1">
                                         {(Array.isArray(pkg.features) ? pkg.features : (typeof pkg.features === 'string' ? JSON.parse(pkg.features) : [])).map((f, index) => (
@@ -659,11 +671,11 @@ function Pricing() {
                                     <a
                                         href="#contact"
                                         className={`block text-center py-3 px-6 rounded-xl font-semibold transition-all ${pkg.featured
-                                            ? 'bg-white text-blue-600 hover:shadow-lg hover:shadow-white/20'
-                                            : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+                                            ? 'bg-white text-violet-600 hover:shadow-lg hover:shadow-white/20'
+                                            : 'bg-white/10 text-white hover:bg-white/20'
                                             }`}
                                     >
-                                        Request Full Pricing
+                                        Explore Package
                                     </a>
                                 </div>
                             </FadeIn>
@@ -701,7 +713,7 @@ function LatestInsights() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Our Blog</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Our Blog</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Latest Insights</h2>
                         <div className="section-divider mx-auto mt-4" />
                     </div>
@@ -711,16 +723,16 @@ function LatestInsights() {
                         <FadeIn key={blog.id} delay={i * 0.1}>
                             <article className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow h-full flex flex-col">
                                 <div className="p-6 flex-1 flex flex-col">
-                                    <div className="text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wide">
+                                    <div className="text-xs font-semibold text-violet-600 mb-2 uppercase tracking-wide">
                                         {new Date(blog.created_at || blog.date).toLocaleDateString()}
                                     </div>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-violet-600 transition-colors">
                                         {blog.title}
                                     </h3>
                                     <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-1">
                                         {blog.excerpt}
                                     </p>
-                                    <Link to={`/blog/${blog.slug}`} className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm mt-auto hover:gap-3 transition-all">
+                                    <Link to={`/blog/${blog.slug}`} className="inline-flex items-center gap-2 text-violet-600 font-semibold text-sm mt-auto hover:gap-3 transition-all">
                                         Read More <FaArrowRight className="w-3 h-3" />
                                     </Link>
                                 </div>
@@ -741,7 +753,7 @@ function About() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <FadeIn>
                         <div>
-                            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">About Us</span>
+                            <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">About Us</span>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">AppNest Technologies Pvt. Ltd</h2>
                             <div className="section-divider mt-4" />
                             <p className="mt-6 text-gray-600 leading-relaxed">
@@ -798,7 +810,7 @@ function Contact() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
                     <div className="text-center mb-16">
-                        <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Get In Touch</span>
+                        <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">Get In Touch</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Contact Us</h2>
                         <div className="section-divider mx-auto mt-4" />
                         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Talk to our expert today and let's discuss your project.</p>
@@ -868,7 +880,7 @@ function Contact() {
 
                     {/* Contact Info */}
                     <FadeIn direction="right" className="lg:col-span-2 space-y-6">
-                        <div className="bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl p-6 text-white">
+                        <div className="bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl p-6 text-white">
                             <h3 className="text-xl font-bold mb-4">Talk to Our Expert</h3>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
@@ -984,7 +996,8 @@ function LeadModal() {
 /* ========== HOME PAGE ========== */
 export default function Home() {
     return (
-        <>
+        <div className="bg-white">
+            <StarGradient />
             <Hero />
             <Services />
             <WhyChoose />
@@ -998,6 +1011,6 @@ export default function Home() {
             <About />
             <Contact />
             <LeadModal />
-        </>
+        </div>
     )
 }

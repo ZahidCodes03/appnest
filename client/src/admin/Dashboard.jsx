@@ -30,11 +30,11 @@ export default function Dashboard() {
     }, [])
 
     const statCards = [
-        { label: 'Total Inquiries', value: stats.inquiries, icon: HiOutlineInbox, color: 'from-blue-500 to-blue-600', bg: 'bg-blue-50' },
-        { label: 'Active Projects', value: stats.active_projects, icon: HiOutlineFolder, color: 'from-cyan-500 to-teal-500', bg: 'bg-cyan-50' },
-        { label: 'Total Clients', value: stats.total_clients, icon: HiOutlineUsers, color: 'from-indigo-500 to-purple-500', bg: 'bg-indigo-50' },
+        { label: 'Total Inquiries', value: stats.inquiries, icon: HiOutlineInbox, color: 'from-violet-500 to-violet-600', bg: 'bg-violet-50' },
+        { label: 'Active Projects', value: stats.active_projects, icon: HiOutlineFolder, color: 'from-violet-600 to-violet-600', bg: 'bg-violet-50' },
+        { label: 'Total Clients', value: stats.total_clients, icon: HiOutlineUsers, color: 'from-indigo-500 to-purpviolet-100', bg: 'bg-indigo-50' },
         { label: 'Pending Approvals', value: stats.pending_approvals, icon: HiOutlineCheckCircle, color: 'from-amber-500 to-orange-500', bg: 'bg-amber-50' },
-        { label: 'Revenue', value: `₹${stats.revenue.toLocaleString()}`, icon: HiOutlineCurrencyRupee, color: 'from-emerald-500 to-green-500', bg: 'bg-emerald-50' },
+        { label: 'Revenue', value: `₹${stats.revenue.toLocaleString()}`, icon: HiOutlineCurrencyRupee, color: 'from-emerald-500 to-greeviolet-500', bg: 'bg-emerald-50' },
     ]
 
     if (loading) return <div className="text-center py-20 text-gray-500">Loading dashboard...</div>
@@ -53,7 +53,7 @@ export default function Dashboard() {
                     >
                         <div className="flex items-center justify-between mb-3">
                             <div className={`w-10 h-10 ${s.bg} rounded-xl flex items-center justify-center`}>
-                                <s.icon className="w-5 h-5 text-blue-600" />
+                                <s.icon className="w-5 h-5 text-violet-600" />
                             </div>
                         </div>
                         <div className="text-2xl font-extrabold text-gray-900">{s.value}</div>
@@ -73,7 +73,7 @@ export default function Dashboard() {
                                     <div className="font-medium text-gray-900 text-sm">{inq.name}</div>
                                     <div className="text-gray-500 text-xs">{inq.project_type} • {new Date(inq.created_at).toLocaleDateString()}</div>
                                 </div>
-                                <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">New</span>
+                                <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-violet-100 text-violet-700">New</span>
                             </div>
                         ))}
                     </div>
@@ -95,7 +95,7 @@ export default function Dashboard() {
                                     </span>
                                 </div>
                                 <div className="w-full bg-gray-100 rounded-full h-2">
-                                    <div className="bg-gradient-to-r from-blue-500 to-cyan-400 h-2 rounded-full transition-all" style={{ width: `${proj.progress || 0}%` }} />
+                                    <div className="bg-gradient-to-r from-violet-600 to-violet-600 h-2 rounded-full transition-all" style={{ width: `${proj.progress || 0}%` }} />
                                 </div>
                             </div>
                         ))}
@@ -112,7 +112,7 @@ export default function Dashboard() {
                                     <div className="font-medium text-gray-900 text-sm">{ticket.subject}</div>
                                     <div className="text-gray-500 text-xs">{ticket.client_name} • {ticket.priority}</div>
                                 </div>
-                                <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${ticket.status === 'open' ? 'bg-blue-100 text-blue-700' : ticket.status === 'resolved' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                                <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${ticket.status === 'open' ? 'bg-violet-100 text-violet-700' : ticket.status === 'resolved' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
                                     {ticket.status}
                                 </span>
                             </div>

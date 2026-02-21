@@ -66,7 +66,7 @@ export default function AdminTickets() {
         }
     }
 
-    const statusColors = { open: 'bg-blue-100 text-blue-700', in_progress: 'bg-amber-100 text-amber-700', resolved: 'bg-green-100 text-green-700' }
+    const statusColors = { open: 'bg-violet-100 text-violet-700', in_progress: 'bg-amber-100 text-amber-700', resolved: 'bg-green-100 text-green-700' }
     const priorityColors = { low: 'text-gray-500', medium: 'text-amber-600', high: 'text-red-600' }
 
     if (loading) return <div className="text-center p-8 text-gray-500">Loading tickets...</div>
@@ -175,7 +175,7 @@ export default function AdminTickets() {
                                 {/* Replies */}
                                 {selectedTicket.replies?.map(r => (
                                     <div key={r.id} className={`flex gap-3 ${r.user_role === 'admin' ? 'flex-row-reverse' : ''}`}>
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 ${r.user_role === 'admin' ? 'bg-indigo-600 text-white' : 'bg-blue-100 text-blue-600'}`}>
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold shrink-0 ${r.user_role === 'admin' ? 'bg-indigo-600 text-white' : 'bg-violet-100 text-violet-600'}`}>
                                             {r.user_name?.[0]}
                                         </div>
                                         <div className={`p-3 rounded-2xl shadow-sm border max-w-[85%] ${r.user_role === 'admin' ? 'bg-indigo-600 text-white rounded-tr-none border-indigo-600' : 'bg-white text-gray-700 rounded-tl-none border-gray-100'}`}>
@@ -194,7 +194,7 @@ export default function AdminTickets() {
                                         value={reply}
                                         onChange={(e) => setReply(e.target.value)}
                                         placeholder="Type a reply..."
-                                        className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                        className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500"
                                     />
                                     <button
                                         type="submit"

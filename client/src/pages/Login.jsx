@@ -31,7 +31,7 @@ export default function Login() {
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-cyan-50 px-4 py-20 relative">
             <Link
                 to="/"
-                className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 bg-white/80 backdrop-blur-sm border border-gray-100 rounded-xl text-sm font-semibold text-gray-600 hover:text-blue-600 hover:border-blue-100 hover:shadow-lg hover:shadow-blue-500/5 transition-all group"
+                className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 bg-white/80 backdrop-blur-sm border border-gray-100 rounded-xl text-sm font-semibold text-gray-600 hover:text-violet-600 hover:border-violet-100 hover:shadow-lg hover:shadow-violet-500/5 transition-all group"
             >
                 <HiArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 Back to Website
@@ -48,7 +48,7 @@ export default function Login() {
                     <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
                     <p className="text-gray-600 mt-1">Sign in to your account</p>
                 </div>
-                <div className="bg-white rounded-2xl shadow-xl shadow-blue-500/5 border border-gray-100 p-8">
+                <div className="bg-white rounded-2xl shadow-xl shadow-violet-500/5 border border-gray-100 p-8">
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>

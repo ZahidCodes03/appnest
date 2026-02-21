@@ -41,7 +41,7 @@ export default function PortalLayout() {
                         const active = location.pathname === link.path
                         return (
                             <Link key={link.path} to={link.path} onClick={() => setSidebarOpen(false)}
-                                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${active ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}>
+                                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${active ? 'bg-violet-50 text-violet-700' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}>
                                 <link.icon className="w-5 h-5" />
                                 {link.name}
                             </Link>
@@ -50,7 +50,7 @@ export default function PortalLayout() {
                 </nav>
                 <div className="p-4 border-t border-gray-100">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-sm font-bold text-blue-700">
+                        <div className="w-8 h-8 bg-violet-100 rounded-lg flex items-center justify-center text-sm font-bold text-violet-700">
                             {user?.name?.[0] || 'C'}
                         </div>
                         <div>
@@ -83,7 +83,7 @@ export default function PortalLayout() {
                         </h1>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center text-white text-sm font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                             {user?.name?.[0] || 'C'}
                         </div>
                     </div>

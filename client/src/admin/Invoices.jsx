@@ -132,7 +132,7 @@ export default function Invoices() {
         paid: 'bg-green-100 text-green-700',
         pending: 'bg-amber-100 text-amber-700',
         overdue: 'bg-red-100 text-red-700',
-        under_review: 'bg-blue-100 text-blue-700'
+        under_review: 'bg-violet-100 text-violet-700'
     }
 
     if (loading) return <div className="p-8 text-center">Loading invoices...</div>
@@ -149,18 +149,18 @@ export default function Invoices() {
                     <div className="grid sm:grid-cols-3 gap-4">
                         <div>
                             <label className="text-xs font-semibold text-gray-500 uppercase ml-1 mb-1 block">Invoice Number</label>
-                            <input required placeholder="e.g. INV-2024-001" value={form.invoice_number} onChange={(e) => setForm({ ...form, invoice_number: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 outline-none" />
+                            <input required placeholder="e.g. INV-2024-001" value={form.invoice_number} onChange={(e) => setForm({ ...form, invoice_number: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-violet-500 outline-none" />
                         </div>
                         <div>
                             <label className="text-xs font-semibold text-gray-500 uppercase ml-1 mb-1 block">Client</label>
-                            <select required value={form.client_id} onChange={(e) => setForm({ ...form, client_id: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 outline-none">
+                            <select required value={form.client_id} onChange={(e) => setForm({ ...form, client_id: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-violet-500 outline-none">
                                 <option value="">Select Client</option>
                                 {clients.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                             </select>
                         </div>
                         <div>
                             <label className="text-xs font-semibold text-gray-500 uppercase ml-1 mb-1 block">Due Date</label>
-                            <input required type="date" value={form.due_date} onChange={(e) => setForm({ ...form, due_date: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-blue-500 outline-none" />
+                            <input required type="date" value={form.due_date} onChange={(e) => setForm({ ...form, due_date: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-violet-500 outline-none" />
                         </div>
                     </div>
 
@@ -169,13 +169,13 @@ export default function Invoices() {
                         {form.items.map((item, idx) => (
                             <div key={idx} className="grid grid-cols-12 gap-2 items-start">
                                 <div className="col-span-6">
-                                    <input placeholder="Item Description (e.g. Website Design - Phase 1)" value={item.description} onChange={(e) => updateItem(idx, 'description', e.target.value)} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:border-blue-500 outline-none" />
+                                    <input placeholder="Item Description (e.g. Website Design - Phase 1)" value={item.description} onChange={(e) => updateItem(idx, 'description', e.target.value)} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:border-violet-500 outline-none" />
                                 </div>
                                 <div className="col-span-2">
-                                    <input type="number" min="1" placeholder="Qty" value={item.quantity} onChange={(e) => updateItem(idx, 'quantity', e.target.value)} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:border-blue-500 outline-none" />
+                                    <input type="number" min="1" placeholder="Qty" value={item.quantity} onChange={(e) => updateItem(idx, 'quantity', e.target.value)} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:border-violet-500 outline-none" />
                                 </div>
                                 <div className="col-span-3">
-                                    <input type="number" min="0" placeholder="Rate (₹)" value={item.rate} onChange={(e) => updateItem(idx, 'rate', e.target.value)} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:border-blue-500 outline-none" />
+                                    <input type="number" min="0" placeholder="Rate (₹)" value={item.rate} onChange={(e) => updateItem(idx, 'rate', e.target.value)} className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm focus:border-violet-500 outline-none" />
                                 </div>
                                 <button type="button" onClick={() => setForm({ ...form, items: form.items.filter((_, i) => i !== idx) })} className="col-span-1 p-2 text-red-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors">
                                     <HiOutlineTrash className="w-5 h-5" />

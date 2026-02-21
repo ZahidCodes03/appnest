@@ -94,7 +94,7 @@ export default function MyInvoices() {
                             <div className="flex items-center gap-2 mb-1">
                                 <h3 className="font-bold text-gray-900">{inv.invoice_number}</h3>
                                 <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${inv.status === 'paid' ? 'bg-green-100 text-green-700' :
-                                    inv.status === 'under_review' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'}`}>{inv.status.replace('_', ' ')}</span>
+                                    inv.status === 'under_review' ? 'bg-violet-100 text-violet-700' : 'bg-amber-100 text-amber-700'}`}>{inv.status.replace('_', ' ')}</span>
                             </div>
                             <p className="text-sm text-gray-500">{inv.client_name} • {new Date(inv.created_at).toLocaleDateString()}</p>
                         </div>
@@ -156,7 +156,7 @@ export default function MyInvoices() {
                                     {showPayment.status === 'under_review' ? (
                                         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 text-center space-y-2">
                                             <div className="flex justify-center">
-                                                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <div className="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center">
                                                     <HiOutlineCheckCircle className="w-6 h-6 text-blue-600" />
                                                 </div>
                                             </div>

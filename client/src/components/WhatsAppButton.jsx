@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { FaWhatsapp, FaTimes, FaPaperPlane } from 'react-icons/fa'
 import { motion, AnimatePresence } from 'framer-motion'
+import api from '../lib/api'
 
 const WEBSITE_KNOWLEDGE = {
     general: {
@@ -63,9 +64,9 @@ const WEBSITE_KNOWLEDGE = {
     founder: {
         name: 'Zahid Qureshi',
         role: 'Lead Developer & Founder',
-        bio: 'Zahid Qureshi is a visionary full-stack developer and the driving force behind AppNest Technologies. With deep expertise in modern web and mobile architectures, he specializes in building high-performance, scalable digital solutions that solve real-world business problems.',
+        bio: 'He is a visionary full-stack developer and the driving force behind AppNest Technologies. With deep expertise in modern web and mobile architectures, he specializes in building high-performance, scalable digital solutions that solve real-world business problems.',
         philosophy: 'His philosophy is built on three pillars: technical excellence, user-centric design, and absolute transparency. He believes that technology should be a tool for empowerment, not just a service.',
-        achievements: 'Zahid has successfully led the development of 50+ digital products, ranging from complex enterprise systems to high-conversion eCommerce platforms.'
+        achievements: 'He has successfully led the development of 50+ digital products, ranging from complex enterprise systems to high-conversion eCommerce platforms.'
     },
     about: 'AppNest Technologies Pvt. Ltd is a modern software agency specializing in web development, mobile app development, and digital solutions. Our team of skilled developers and designers is passionate about building software that makes a difference.',
     mission: 'Our mission is to deliver innovative digital solutions that help businesses grow and thrive in the digital age through Quality, Innovation, Transparency, and Long-term Partnership.',
@@ -78,6 +79,7 @@ export default function WhatsAppButton() {
     const [isAtFooter, setIsAtFooter] = useState(false)
     const [inputValue, setInputValue] = useState('')
     const [isTyping, setIsTyping] = useState(false)
+    const [blogs, setBlogs] = useState([])
     const [messages, setMessages] = useState([
         {
             id: 1,
@@ -108,7 +110,19 @@ export default function WhatsAppButton() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    const getBotResponse = (text) => {
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            try {
+                const { data } = await api.get('/blogs')
+                setBlogs(data.slice(0, 3))
+            } catch (error) {
+                console.error('Failed to fetch blogs for chatbot', error)
+            }
+        }
+        fetchBlogs()
+    }, [])
+
+    const getBotResponse = (text, history = [], currentBlogs = []) => {
         const lowerText = text.toLowerCase()
 
         // 🔹 1. General / Greeting
@@ -275,6 +289,10 @@ We serve clients internationally (${WEBSITE_KNOWLEDGE.contact.international}). H
 
         // 🔹 9.5. Insights / Blog
         if (lowerText.includes('insight') || lowerText.includes('blog') || lowerText.includes('article') || lowerText.includes('news')) {
+            if (currentBlogs && currentBlogs.length > 0) {
+                const blogList = currentBlogs.map(b => `• **${b.title}**: ${b.excerpt}`).join('\n\n')
+                return `Here are our latest insights from the blog:\n\n${blogList}\n\nYou can explore all our latest articles in the "Latest Insights" section on our homepage.`
+            }
             return `${WEBSITE_KNOWLEDGE.insights} You can explore all our latest articles in the "Latest Insights" section on our homepage.`
         }
 
@@ -288,6 +306,10 @@ We serve clients internationally (${WEBSITE_KNOWLEDGE.contact.international}). H
 
         // 🔹 11. Affirmative & Gratitude
         if (lowerText === 'yes' || lowerText === 'yeah' || lowerText === 'sure' || lowerText.includes('definitely')) {
+            const lastBotMsg = history.filter(m => m.sender === 'bot').pop()?.text
+            if (lastBotMsg && lastBotMsg.includes('Would you like to know more about his background or philosophy?')) {
+                return `Beyond being a lead developer, ${WEBSITE_KNOWLEDGE.founder.philosophy} ${WEBSITE_KNOWLEDGE.founder.achievements}`
+            }
             return "Excellent. To provide the most relevant assistance, would you like to explore our specific service packages, or would you prefer a direct consultation with our lead developer on WhatsApp?"
         }
         if (lowerText.includes('thank you') || lowerText.includes('thanks') || lowerText.includes('thankyou') || lowerText.includes('thx')) {
@@ -327,7 +349,7 @@ We serve clients internationally (${WEBSITE_KNOWLEDGE.contact.international}). H
         setTimeout(() => {
             const botMsg = {
                 id: Date.now() + 1,
-                text: getBotResponse(currentInput),
+                text: getBotResponse(currentInput, messages, blogs),
                 sender: 'bot',
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             }
