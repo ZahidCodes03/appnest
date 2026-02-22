@@ -875,20 +875,11 @@ function About() {
 
                             <div className="mt-8 space-y-6 text-gray-600 leading-relaxed text-lg">
                                 <p>
-                                    Founded with a vision to empower businesses through technology, AppNest Technologies is a forward-thinking software agency dedicated to delivering innovative digital solutions that help organizations thrive in a rapidly evolving digital landscape. We specialize in web development, mobile application development, and customized software solutions tailored to meet the unique needs of startups, small businesses, and enterprises alike.
-                                </p>
-                                <p>
-                                    At AppNest Technologies, we believe that technology is more than just code—it’s a powerful tool to transform ideas into reality and drive meaningful growth. Our approach combines creativity, strategy, and cutting-edge technologies to build digital products that are not only visually appealing but also highly functional, scalable, and performance-driven. From intuitive user interfaces to robust backend systems, we ensure every solution is crafted with precision and purpose.
-                                </p>
-                                <p>
-                                    Our team consists of passionate developers, creative designers, and problem-solvers who are committed to excellence at every stage of the development process. We work closely with our clients to understand their goals, challenges, and vision, enabling us to deliver solutions that align perfectly with their business objectives. Whether it’s building a responsive website, developing a feature-rich mobile app, or creating a custom software platform, we focus on delivering quality, reliability, and innovation.
-                                </p>
-                                <p>
-                                    What sets us apart is our dedication to continuous improvement and staying ahead of industry trends. We leverage modern frameworks, best coding practices, and user-centric design principles to ensure our products remain competitive and future-ready. Our goal is not just to build software, but to create digital experiences that engage users, enhance brand value, and generate real business results.
-                                </p>
-                                <p>
-                                    At the core of AppNest Technologies is a commitment to building long-term partnerships. We strive to be more than just a service provider—we aim to be a trusted technology partner that supports our clients at every step of their digital journey.
-                                </p>
+                                    AppNest Technologies is a forward-thinking software agency dedicated to empowering businesses through innovative digital solutions. We specialize in web development, mobile applications, and custom software tailored to startups, small businesses, and enterprises.</p>
+
+                                <p>Our team combines creativity, strategy, and modern technology to deliver scalable, high-performance, and user-focused solutions. By working closely with clients, we ensure every product aligns with their goals and drives real business growth.</p>
+
+                                <p>At AppNest, we don’t just build software—we create impactful digital experiences and long-term partnerships.</p>
                                 <p className="text-violet-600 font-bold text-xl mt-10">
                                     Let’s build something extraordinary together.
                                 </p>
