@@ -84,9 +84,15 @@ const WEBSITE_KNOWLEDGE = {
         bio: 'He is a visionary full-stack developer specializing in high-performance architectures.',
         philosophy: 'Technical excellence, user-centric design, and absolute transparency.'
     },
-    about: 'AppNest Technologies Pvt. Ltd is a modern software agency specializing in web development, mobile app development, and digital solutions.',
-    mission: 'To deliver innovative digital solutions that help businesses grow and thrive in the digital age through Quality and Innovation.',
-    vision: 'To be the most trusted technology partner globally, known for building products that make a real difference.',
+    contact: {
+        email: 'info@appnest.in',
+        phone: '+91 60066 42157',
+        location: 'Global (HQ in India)',
+        hours: 'Mon-Sat, 9 AM - 7 PM IST'
+    },
+    about: 'AppNest Technologies is a premier software agency specializing in web development, mobile app development, and bespoke digital solutions.',
+    mission: 'To empower businesses through innovative technology, delivering high-performance products that drive growth.',
+    vision: 'To be the most trusted global technology partner, known for excellence and innovation.',
     industries: ['Healthcare', 'Education', 'E-Commerce', 'Real Estate', 'Solar & Energy', 'Startups']
 }
 
@@ -99,7 +105,7 @@ export default function WhatsAppButton() {
     const [messages, setMessages] = useState([
         {
             id: 1,
-            text: "Welcome to AppNest Technologies. 👋I am your virtual assistant, here to assist you with our premium web and software development services. How may I help you today?",
+            text: "Hello! 👋 I'm the official AI assistant for AppNest Technologies. I'm here to help you explore our web and mobile development services. How can I assist you today?",
             sender: 'bot',
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
@@ -140,266 +146,99 @@ export default function WhatsAppButton() {
 
     const getBotResponse = (text, history = [], currentBlogs = []) => {
         const lowerText = text.toLowerCase()
+        
+        // Helper to detect casual tone
+        const isCasual = lowerText.match(/\b(hi|hello|hey|yo|sup|what's up|how's it going|how are you|thanks|thank you|good morning|good evening)\b/)
 
-        // 🔹 1. Identity & Name
-        if (lowerText.includes('your name')) {
-            return "I'm the AppNest AI Assistant, your digital guide to extraordinary software solutions! I don't have a human name, but you can call me AP."
-        }
-        if (lowerText.includes('who are you')) {
-            return "I am the official virtual assistant for AppNest Technologies. I'm here to answer your questions about our services, pricing, and how we can help your business grow."
+        // CORE BEHAVIOR: Conversational Phrases
+        const fillers = ["Sure, I can help with that!", "Great question!", "Happy to assist you with that 😊", "That's an excellent point.", "I'd be glad to explain that for you."]
+        const getRandomFiller = () => fillers[Math.floor(Math.random() * fillers.length)]
+
+        // 🔹 1. Identity & Persona
+        if (lowerText.includes('your name') || lowerText.includes('who are you')) {
+            return `I am the official AI assistant of AppNest Technologies. I represent our company to provide accurate, helpful, and professional guidance about our services. ${isCasual ? "You can just think of me as your friendly digital guide! 😊" : "I am here to ensure you have all the information needed to make informed decisions about your digital projects."}`
         }
         if (lowerText.includes('real person') || lowerText.includes('bot') || lowerText.includes('human')) {
-            return "I'm an advanced AI assistant built by the AppNest team. I'm available 24/7 to help you, but if you'd like to talk to a real person, our lead developer Zahid is just a WhatsApp click away!"
+            return "I am an intelligent AI assistant representation of AppNest. While I'm powered by advanced technology to assist you 24/7, our lead developers and specialists are always available for more complex technical discussions or project kick-offs."
         }
 
-        // 🔹 2. Capabilities & Services
-        if (lowerText.includes('what can you do') || lowerText.includes('how can you help')) {
-            return "We help businesses succeed by building premium digital products. I can tell you about our web development, mobile apps, UI/UX design, SEO services, and custom business software."
-        }
-        if (lowerText.includes('service') || lowerText.includes('offer')) {
-            return `We offer a wide range of premium services:
-• Custom Web Development
-• Mobile App Development (iOS/Android)
+        // 🔹 2. Website Knowledge - Business Related
+        if (lowerText.includes('service') || lowerText.includes('offer') || lowerText.includes('what can you do')) {
+            return `${getRandomFiller()} We specialize in:
+• Custom Web Development (React, Next.js)
+• Mobile App Development (Android & iOS)
 • UI/UX Strategy & Design
 • E-Commerce Solutions
-• Custom Business Dashboards & CRM
-• SEO & Performance Optimization
-• Branding & Logo Design`
-        }
-        if (lowerText.includes('about your company') || lowerText.includes('tell me about appnest')) {
-            return WEBSITE_KNOWLEDGE.about + " " + WEBSITE_KNOWLEDGE.mission
-        }
-        if (lowerText.includes('location') || lowerText.includes('where are you')) {
-            return `Our headquarters is in ${WEBSITE_KNOWLEDGE.contact.location}, but we operate as a global agency.`
-        }
-        if (lowerText.includes('international') || lowerText.includes('globally')) {
-            return "Absolutely! We work with clients all over the world, including the US, UK, Middle East, and Europe. Our process is designed for seamless remote collaboration."
-        }
-        if (lowerText.includes('how experienced') || lowerText.includes('experience')) {
-            return "We have successfully delivered over 50+ high-performance projects across various industries. Our founder and lead developer, Zahid, has years of deep technical expertise."
-        }
-        if (lowerText.includes('who is behind') || lowerText.includes('founder') || lowerText.includes('zahid')) {
-            return `AppNest was founded by ${WEBSITE_KNOWLEDGE.founder.name}. ${WEBSITE_KNOWLEDGE.founder.bio}`
+• Custom Business Software & Dashboards
+Every solution we build is tailored specifically to your business goals.`
         }
 
-        // 🔹 3. Differentiation & Choice
-        if (lowerText.includes('different') || lowerText.includes('why choose') || lowerText.includes('advantage')) {
-            return "What makes us different is our commitment to 'extraordinary'. We don't just write code; we build ROI-driven products with premium aesthetics, secure architecture, and a partnership mindset."
+        if (lowerText.includes('about appnest') || lowerText.includes('tell me about') || lowerText.includes('company')) {
+            return `${WEBSITE_KNOWLEDGE.about} ${WEBSITE_KNOWLEDGE.mission} We take pride in our commitment to quality and innovation.`
         }
 
-        // 🔹 4. Trust & Experience
-        if (lowerText.includes('portfolio') || lowerText.includes('previous work') || lowerText.includes('examples')) {
-            return `${WEBSITE_KNOWLEDGE.trust.portfolio} You can see them right now in the Portfolio section on our homepage.`
-        }
-        if (lowerText.includes('worked with clients') || lowerText.includes('happy clients')) {
-            return "Yes, we've worked with over 30+ happy clients globally. From small startups to established businesses, our focus is always on quality."
-        }
-        if (lowerText.includes('industries')) {
-            return `We have extensive experience in: ${WEBSITE_KNOWLEDGE.industries.join(', ')}. We love learning about new industries too!`
-        }
-        if (lowerText.includes('startup')) {
-            return "We love working with startups! We understand the need for speed and scalability, and we offer special consultation to help you choose the right MVP features."
-        }
-        if (lowerText.includes('large project') || lowerText.includes('complex')) {
-            return "Yes, we handle large enterprise projects using scalable architectures like microservices and robust database systems. We excel at complexity!"
+        if (lowerText.includes('pricing') || lowerText.includes('cost') || lowerText.includes('how much') || lowerText.includes('charge')) {
+            const pricingInfo = WEBSITE_KNOWLEDGE.pricing.map(p => `• ${p.name}: Starting at ${p.price}`).join('\n')
+            return `We offer competitive and transparent pricing based on the value we deliver. 
+${pricingInfo}
+For larger or more complex enterprise projects, we provide custom quotes after a detailed consultation to understand your specific needs.`
         }
 
-        // 🔹 5. Technology & Stack
-        if (lowerText.includes('technology') || lowerText.includes('tech stack')) {
-            return `We use the most modern and reliable stacks:
+        if (lowerText.includes('tech stack') || lowerText.includes('technology') || lowerText.includes('what do you use')) {
+            return `At AppNest, we use industry-leading tech to build high-performance products:
 • Frontend: ${WEBSITE_KNOWLEDGE.tech_stack.frontend}
 • Backend: ${WEBSITE_KNOWLEDGE.tech_stack.backend}
-• Mobile: ${WEBSITE_KNOWLEDGE.tech_stack.mobile}`
-        }
-        if (lowerText.includes('react') || lowerText.includes('modern framework')) {
-            return "Yes! React and Next.js are our primary tools for building fast, SEO-friendly, and modern web applications."
-        }
-        if (lowerText.includes('mobile app') || lowerText.includes('ios') || lowerText.includes('android')) {
-            return WEBSITE_KNOWLEDGE.services_detailed.apps
-        }
-        if (lowerText.includes('custom website')) {
-            return "Every website we build is 100% custom-coded to your specific needs. We don't believe in one-size-fits-all templates."
-        }
-        if (lowerText.includes('ui/ux') || lowerText.includes('design')) {
-            return WEBSITE_KNOWLEDGE.services_detailed.uiux + " " + WEBSITE_KNOWLEDGE.services_detailed.branding
-        }
-        if (lowerText.includes('redesign')) {
-            return "Yes, we can modernize your current website to improve its performance, security, and user engagement."
-        }
-        if (lowerText.includes('seo') || lowerText.includes('google ranking')) {
-            return WEBSITE_KNOWLEDGE.services_detailed.seo
-        }
-        if (lowerText.includes('grow my business') || lowerText.includes('online presence')) {
-            return "Absolutely! We focus on conversion-driven design and SEO to help turn your website visitors into paying customers."
+• Mobile: ${WEBSITE_KNOWLEDGE.tech_stack.mobile}
+This ensures your product is fast, secure, and scalable.`
         }
 
-        // 🔹 6. Project Process
-        if (lowerText.includes('how long') || lowerText.includes('timeframe')) {
-            return WEBSITE_KNOWLEDGE.process_detailed.timeframe
-        }
-        if (lowerText.includes('process') || lowerText.includes('how you work')) {
-            return `Our 6-step process ensures project success:
-${WEBSITE_KNOWLEDGE.process_detailed.steps.join('\n')}`
-        }
-        if (lowerText.includes('how do i start') || lowerText.includes('how to start')) {
-            return WEBSITE_KNOWLEDGE.general.get_started
-        }
-        if (lowerText.includes('free consultation')) {
-            return "Yes! We offer a 100% free consultation to understand your project goals and provide a strategic roadmap."
-        }
-        if (lowerText.includes('revision')) {
-            return WEBSITE_KNOWLEDGE.process_detailed.revisions
-        }
-        if (lowerText.includes('hosting') || lowerText.includes('domain')) {
-            return WEBSITE_KNOWLEDGE.support.hosting_domain
-        }
-        if (lowerText.includes('source code') || lowerText.includes('own the code')) {
-            return WEBSITE_KNOWLEDGE.legal.ownership
-        }
-        if (lowerText.includes('agreement') || lowerText.includes('contract') || lowerText.includes('nda')) {
-            return WEBSITE_KNOWLEDGE.legal.contracts
-        }
-        if (lowerText.includes('test') || lowerText.includes('quality')) {
-            return "Quality is our signature. We perform rigorous manual and automated testing across multiple devices before any launch."
+        if (lowerText.includes('portfolio') || lowerText.includes('previous work') || lowerText.includes('examples')) {
+            return `We have a proven track record with over 50+ successful projects. ${WEBSITE_KNOWLEDGE.trust.portfolio} You can view our detailed case studies in the Portfolio section of this website!`
         }
 
-        // 🔹 7. Financial & Payments
-        if (lowerText.includes('how much') || lowerText.includes('charge') || lowerText.includes('pricing') || lowerText.includes('cost')) {
-            return "We have standard packages for common needs (starting at ₹15,000) and provide custom quotes for more complex apps. Which one would you like to explore?"
-        }
-        if (lowerText.includes('custom pricing')) {
-            return "Yes, we provide tailored quotes based on your specific feature requirements and project complexity."
-        }
-        if (lowerText.includes('payment method')) {
-            return WEBSITE_KNOWLEDGE.financial.methods
-        }
-        if (lowerText.includes('advance payment') || lowerText.includes('installment')) {
-            return WEBSITE_KNOWLEDGE.financial.installments
-        }
-        if (lowerText.includes('invoice')) {
-            return "Yes, we provide official invoices for all payments for your tax and record-keeping purposes."
-        }
-        if (lowerText.includes('budget') || lowerText.includes('low budget')) {
-            return "We strive to be helpful to everyone! Share your budget, and we'll see if we can suggest a phased MVP approach that fits."
-        }
-        if (lowerText.includes('discount')) {
-            return WEBSITE_KNOWLEDGE.financial.discounts
-        }
-        if (lowerText.includes('refund')) {
-            return WEBSITE_KNOWLEDGE.financial.refunds
-        }
-        if (lowerText.includes('not satisfied')) {
-            return "Satisfaction is guaranteed through our collaborative process. If you're not happy with a design, we use our iterations to make it right until it is perfect!"
+        if (lowerText.includes('location') || lowerText.includes('where are you') || lowerText.includes('address')) {
+            return `Our primary operations are ${WEBSITE_KNOWLEDGE.contact.location}. However, we operate as a global agency providing top-tier digital solutions to clients worldwide through seamless remote collaboration.`
         }
 
-        // 🔹 8. Support & Safety
-        if (lowerText.includes('support') || lowerText.includes('after delivery')) {
-            return WEBSITE_KNOWLEDGE.support.after_delivery
-        }
-        if (lowerText.includes('maintenance')) {
-            return WEBSITE_KNOWLEDGE.support.maintenance
-        }
-        if (lowerText.includes('changes later')) {
-            return "Yes, our code is built to be scalable, making it easy and cost-effective to add new features or changes later."
-        }
-        if (lowerText.includes('emergency')) {
-            return "We provide 24/7 emergency support for critical issues like site downtime for our maintenance plan subscribers."
-        }
-        if (lowerText.includes('contact') || lowerText.includes('reach you')) {
-            return `You can reach us via:
+        if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('reach you')) {
+            return `You can reach us through any of these channels:
 • Email: ${WEBSITE_KNOWLEDGE.contact.email}
-• WhatsApp: ${WEBSITE_KNOWLEDGE.contact.phone}
-• Phone: ${WEBSITE_KNOWLEDGE.contact.phone}`
-        }
-        if (lowerText.includes('working hours')) {
-            return `Our core hours are ${WEBSITE_KNOWLEDGE.contact.hours}, but our AI is here 24/7!`
-        }
-        if (lowerText.includes('how quickly') || lowerText.includes('respond')) {
-            return "We typically respond to emails within 2-4 hours and WhatsApp messages within minutes during business hours."
-        }
-        if (lowerText.includes('meeting') || lowerText.includes('call')) {
-            return "Absolutely! We can schedule a Zoom or Google Meet call to discuss your project in detail."
-        }
-        if (lowerText.includes('demo')) {
-            return "We can provide live demos of our previous work or a clickable prototype for your specific project during the design phase."
-        }
-        if (lowerText.includes('track progress') || lowerText.includes('monitor')) {
-            return WEBSITE_KNOWLEDGE.process_detailed.updates
-        }
-        if (lowerText.includes('data safe') || lowerText.includes('privacy')) {
-            return WEBSITE_KNOWLEDGE.legal.safety + " " + WEBSITE_KNOWLEDGE.tech_stack.security
+• WhatsApp/Phone: ${WEBSITE_KNOWLEDGE.contact.phone}
+Our core hours are ${WEBSITE_KNOWLEDGE.contact.hours}, but I'm here 24/7 to assist!`
         }
 
-        // 🔹 9. Feature Specifics
-        if (lowerText.includes('fast-loading') || lowerText.includes('speed')) {
-            return "Performance is non-negotiable for us. We optimize images, use CDN caching, and write clean code to ensure sub-second load times."
-        }
-        if (lowerText.includes('api integration')) {
-            return "Yes, we have deep experience integrating third-party APIs like payment gateways, CRM tools, maps, and social media."
-        }
-        if (lowerText.includes('ecommerce') || lowerText.includes('online store')) {
-            return WEBSITE_KNOWLEDGE.services_detailed.ecommerce
-        }
-        if (lowerText.includes('payment gateway')) {
-            return "Yes, we can integrate Stripe, Razorpay, PayPal, or any other regional gateway you prefer."
-        }
-        if (lowerText.includes('wordpress') || lowerText.includes('custom code')) {
-            return "We specialize in custom code (React/Node) for high performance, but we also handle WordPress for blogs or simple corporate sites if requested."
-        }
-        if (lowerText.includes('fix bug') || lowerText.includes('existing website')) {
-            return "Yes, our team can help you debug and optimize your current website to make it faster and modern."
-        }
-        if (lowerText.includes('dashboard') || lowerText.includes('admin panel')) {
-            return "Custom admin dashboards are our specialty! We build powerful tools to help you manage your data, users, and content easily."
-        }
-
-        // 🔹 10. Misc, Career & Human
-        if (lowerText.includes('hiring') || lowerText.includes('join your team')) {
-            return WEBSITE_KNOWLEDGE.career.hiring
-        }
-        if (lowerText.includes('internship')) {
-            return WEBSITE_KNOWLEDGE.career.internships
-        }
-        if (lowerText.includes('partner')) {
-            return WEBSITE_KNOWLEDGE.career.partnerships
-        }
-        if (lowerText.includes('long-term goal')) {
-            return WEBSITE_KNOWLEDGE.vision
-        }
-        if (lowerText.includes('outsourcing')) {
-            return "Yes, we handle outsourcing for international agencies looking for a reliable technical partner."
-        }
-        if (lowerText.includes('technical term') || lowerText.includes('simple term')) {
-            return WEBSITE_KNOWLEDGE.collaboration.simplicity
-        }
-        if (lowerText.includes('no technical knowledge')) {
-            return WEBSITE_KNOWLEDGE.collaboration.no_tech_knowledge
-        }
-        if (lowerText.includes('suggest idea')) {
-            return WEBSITE_KNOWLEDGE.collaboration.ideas
-        }
-        if (lowerText.includes('hire me')) {
-            return "We are always on the lookout for stars! Feel free to send your CV to careers@appnest.in."
-        }
-
-        // 🔹 11. Greeting & Social
+        // 🔹 3. Human-Like Interaction & Tone Adaptation
         if (lowerText.includes('how are you') || lowerText.includes('how\'s it going')) {
-            return "I'm performing at 100% capacity! Thank you for asking. How can I help you build something extraordinary today?"
-        }
-        if (lowerText.includes('hi') || lowerText.includes('hello') || lowerText.includes('hey')) {
-            return "Hello! I'm the AppNest Assistant. Are you interested in a new project, or just looking around? I'm here to help!"
-        }
-        if (lowerText.includes('thank you') || lowerText.includes('thanks')) {
-            return "You're very welcome! I'm here if you have any more questions. Let's make your next project a success!"
-        }
-        if (lowerText.includes('joke')) {
-            return "Why do programmers prefer dark mode? Because light attracts bugs! 🐛"
-        }
-        if (lowerText.includes('stay updated')) {
-            return "Our team follows the latest industry trends through continuous learning, attending tech conferences, and contributing to open-source projects. We never stop evolving!"
+            return "I'm doing great, thank you for asking! I'm ready to help you build something extraordinary. How's your day going? 😊"
         }
 
-        return "That's a great question! To give you the most accurate and helpful answer, I'd suggest a quick 5-minute chat with our lead developer. Would you like to connect on WhatsApp now?"
+        if (lowerText.includes('hi') || lowerText.includes('hello') || lowerText.includes('hey')) {
+            return `Hey there! 👋 Happy to see you. I'm the AppNest AI assistant—how can I help you today? Whether it's a new project idea or just some questions about our tech, I'm all ears!`
+        }
+
+        if (lowerText.includes('thank you') || lowerText.includes('thanks')) {
+            return "You're very welcome! It's my pleasure to help. If you need anything else, feel free to ask."
+        }
+
+        if (lowerText.includes('sorry') || lowerText.includes('issue') || lowerText.includes('problem')) {
+            return "I understand. Let me guide you through this—showing empathy and providing solutions is what we're here for. How can I specifically assist in resolving this for you?"
+        }
+
+        // 🔹 4. Problem Solving & Next Steps
+        if (lowerText.includes('start') || lowerText.includes('hiring') || lowerText.includes('consultation')) {
+            return `${getRandomFiller()} To get started, you can share your project details right here, or we can schedule a free consultation with our lead developer Zahi. Would you like to connect on WhatsApp for a quicker discussion?`
+        }
+
+        // 🔹 5. Limitations Handling & Fallback
+        // specific generic fallback as requested
+        const genericBusinessKeywords = ['web', 'app', 'design', 'seo', 'software', 'dev', 'code', 'pricing', 'timeline', 'process', 'support']
+        const isBusinessQuery = genericBusinessKeywords.some(k => lowerText.includes(k))
+
+        if (isBusinessQuery) {
+            return "That's a great question about our business services. To give you the most accurate details tailored to your project, I'd recommend a quick chat with our specialist. I don't have that specific information right now, but I'd be happy to help you find it or connect you with the team! 😊"
+        }
+
+        return "I don't have that information right now, but I'd be happy to help you find it. Since every project is unique, would you like to speak with one of our human experts to discuss your specific requirements?"
     }
 
     const handleSendMessage = (e) => {
