@@ -105,6 +105,14 @@ router.get('/pricing', async (req, res) => {
     try { res.json((await pool.query('SELECT * FROM pricing_packages ORDER BY id')).rows) }
     catch { res.status(500).json({ error: 'Server error' }) }
 })
+
+router.post('/pricing', authenticate, adminOnly, async (req, res) => {
+    try {
+        const { name, price, type, features, featured } = req.body
+        const r = await pool.query('INSERT INTO pricing_packages (name, price, type, features, featured) VALUES ($1, $2, $3, $4, $5) RETURNING *', [name, price, type, features, featured || false])
+        res.status(201).json(r.rows[0])
+    } catch { res.status(500).json({ error: 'Server error' }) }
+})
 router.put('/pricing/:id', authenticate, adminOnly, async (req, res) => {
     try {
         const { name, price, type, features, featured } = req.body
