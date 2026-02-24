@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { HiPlus, HiTrash, HiUpload, HiOutlineDocument, HiOutlineDownload } from 'react-icons/hi'
 import api from '../lib/api'
 import toast from 'react-hot-toast'
+import { getImageUrl } from '../lib/utils'
 
 export default function Deliverables() {
     const [deliverables, setDeliverables] = useState([])
@@ -160,7 +161,7 @@ export default function Deliverables() {
                             </div>
                             <div className="flex items-center gap-2">
                                 <a
-                                    href={item.file_url}
+                                    href={getImageUrl(item.file_url)}
                                     target="_blank"
                                     rel="noreferrer"
                                     className="p-2 rounded-lg hover:bg-blue-50 text-blue-600 transition-colors"

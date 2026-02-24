@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { FaCode, FaMobileAlt, FaPalette, FaShoppingCart, FaLaptopCode, FaTools, FaSearch, FaRocket, FaShieldAlt, FaHandshake, FaDollarSign, FaHeadset, FaUsers, FaStar, FaCheck, FaArrowRight, FaArrowLeft, FaHospital, FaGraduationCap, FaStore, FaBuilding, FaSolarPanel, FaLightbulb, FaQuoteLeft, FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaDownload } from 'react-icons/fa'
 import toast from 'react-hot-toast'
 import api from '../lib/api'
+import { getImageUrl } from '../lib/utils'
 
 /* ========== Animation Wrapper ========== */
 function FadeIn({ children, delay = 0, direction = 'up', className = '' }) {
@@ -295,17 +296,6 @@ function Portfolio() {
         }, 4000)
         return () => clearInterval(timer)
     }, [portfolioItems.length])
-
-    const getImageUrl = (url) => {
-        if (!url) return null
-        if (url.includes('localhost')) {
-            const parts = url.split('/uploads/')
-            if (parts[1]) url = `/uploads/${parts[1]}`
-        }
-        if (url.startsWith('http')) return url
-        const backendUrl = import.meta.env.VITE_API_URL || ''
-        return `${backendUrl}${url}`
-    }
 
     const goTo = (index) => {
         setDirection(index > currentIndex ? 1 : -1)

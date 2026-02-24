@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { HiPlus, HiTrash, HiUpload } from 'react-icons/hi'
 import api from '../lib/api'
 import toast from 'react-hot-toast'
+import { getImageUrl } from '../lib/utils'
 
 export default function Portfolio() {
     const [items, setItems] = useState([])
@@ -100,7 +101,7 @@ export default function Portfolio() {
                                 {uploading && <span className="text-sm text-blue-600 animate-pulse font-medium">Uploading...</span>}
                                 {form.screenshot_url && <span className="text-sm text-green-600 font-medium">Image Uploaded!</span>}
                             </div>
-                            {form.screenshot_url && <img src={form.screenshot_url} alt="Preview" className="mt-3 h-32 w-auto rounded-lg border border-gray-200 object-cover" />}
+                            {form.screenshot_url && <img src={getImageUrl(form.screenshot_url)} alt="Preview" className="mt-3 h-32 w-auto rounded-lg border border-gray-200 object-cover" />}
                         </div>
 
                         <textarea required placeholder="Project Description" rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="px-4 py-2.5 rounded-xl border border-gray-200 text-sm sm:col-span-2 resize-none" />
@@ -123,7 +124,7 @@ export default function Portfolio() {
                         <div key={item.id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden group hover:shadow-lg transition-all">
                             <div className="h-48 bg-gray-100 relative">
                                 {item.screenshot_url ? (
-                                    <img src={item.screenshot_url} alt={item.title} className="w-full h-full object-contain bg-gray-50" />
+                                    <img src={getImageUrl(item.screenshot_url)} alt={item.title} className="w-full h-full object-contain bg-gray-50" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">No Image</div>
                                 )}
