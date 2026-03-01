@@ -279,7 +279,9 @@ function Portfolio() {
         const fetchPortfolio = async () => {
             try {
                 const { data } = await api.get('/portfolio')
-                if (data && data.length > 0) setPortfolioItems(data)
+                if (data && Array.isArray(data) && data.length > 0) {
+                    setPortfolioItems(data)
+                }
             } catch (error) {
                 console.error('Failed to fetch portfolio', error)
             }
@@ -289,13 +291,13 @@ function Portfolio() {
 
     // Auto-slide every 4 seconds
     useEffect(() => {
-        if (portfolioItems.length <= 1) return
+        if (!portfolioItems || !Array.isArray(portfolioItems) || portfolioItems.length <= 1) return
         const timer = setInterval(() => {
             setDirection(1)
             setCurrentIndex(prev => (prev + 1) % portfolioItems.length)
         }, 4000)
         return () => clearInterval(timer)
-    }, [portfolioItems.length])
+    }, [portfolioItems?.length])
 
     const goTo = (index) => {
         setDirection(index > currentIndex ? 1 : -1)
@@ -510,7 +512,9 @@ function Testimonials() {
         const fetchTestimonials = async () => {
             try {
                 const { data } = await api.get('/testimonials')
-                setTestimonials(data)
+                if (data && Array.isArray(data)) {
+                    setTestimonials(data)
+                }
             } catch (error) {
                 console.error('Failed to fetch testimonials', error)
             } finally {
@@ -521,10 +525,10 @@ function Testimonials() {
     }, [])
 
     useEffect(() => {
-        if (testimonials.length === 0) return
+        if (!testimonials || !Array.isArray(testimonials) || testimonials.length === 0) return
         const timer = setInterval(() => setCurrent((c) => (c + 1) % testimonials.length), 5000)
         return () => clearInterval(timer)
-    }, [testimonials.length])
+    }, [testimonials?.length])
 
     if (loading || testimonials.length === 0) return null
 
@@ -802,7 +806,9 @@ function LatestInsights() {
         const fetchBlogs = async () => {
             try {
                 const { data } = await api.get('/blogs') // Should return published blogs
-                setBlogs(data.slice(0, 3)) // Take top 3
+                if (data && Array.isArray(data)) {
+                    setBlogs(data.slice(0, 3)) // Take top 3
+                }
             } catch (error) {
                 console.error('Failed to fetch blogs', error)
             } finally {
