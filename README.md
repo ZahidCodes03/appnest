@@ -1,4 +1,4 @@
-# AppNest Technologies Pvt. Ltd
+# AppNest Technologies
 
 > Full-Stack Agency Website + Admin Panel + Client Portal
 
@@ -84,4 +84,4 @@ appnest/
 - **Database**: Railway PostgreSQL / Neon
 
 ---
-© AppNest Technologies Pvt. Ltd
+© AppNest Technologies

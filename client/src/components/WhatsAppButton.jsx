@@ -5,7 +5,7 @@ import api from '../lib/api'
 
 const WEBSITE_KNOWLEDGE = {
     general: {
-        who_we_are: 'AppNest Technologies Pvt. Ltd is a modern software agency founded with a vision to empower businesses through technology. We specialize in web development, mobile app development, and digital solutions that drive real business results.',
+        who_we_are: 'AppNest Technologies is a modern software agency founded with a vision to empower businesses through technology. We specialize in web development, mobile app development, and digital solutions that drive real business results.',
         how_we_help: 'We combine creativity with cutting-edge technology to deliver digital products that not only look stunning but also help businesses grow and thrive in the digital age.',
         get_started: "Getting started is easy! You can share your project details here, or click the 'Talk to Specialist' button to schedule a free consultation with our team.",
         availability: "Yes! We are currently accepting new projects. Whether it's a small website or a complex enterprise app, we're ready to build it for you."

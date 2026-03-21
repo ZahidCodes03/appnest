@@ -128,7 +128,7 @@ export default function Footer() {
             <div className="border-t border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-gray-500 text-sm">
-                        © {new Date().getFullYear()} AppNest Technologies Pvt. Ltd. All Rights Reserved.
+                        © {new Date().getFullYear()} AppNest Technologies. All Rights Reserved.
                     </p>
                     <div className="flex gap-6 text-sm">
                         <Link to="/privacy" className="text-gray-500 hover:text-gray-300 transition-colors">Privacy Policy</Link>

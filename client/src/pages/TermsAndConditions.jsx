@@ -26,7 +26,7 @@ export default function TermsAndConditions() {
                                 <FaGavel className="text-blue-500" /> Acceptance of Terms
                             </h2>
                             <p>
-                                By accessing and using the services provided by AppNest Technologies Pvt. Ltd., you agree to be bound by these Terms and Conditions. If you do not agree to all of these terms, do not use our services.
+                                By accessing and using the services provided by AppNest Technologies, you agree to be bound by these Terms and Conditions. If you do not agree to all of these terms, do not use our services.
                             </p>
                         </section>
 

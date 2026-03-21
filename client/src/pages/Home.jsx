@@ -866,7 +866,7 @@ function About() {
                     <FadeIn>
                         <div>
                             <span className="text-violet-600 font-semibold text-sm uppercase tracking-wider">About Us</span>
-                            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">AppNest Technologies Pvt. Ltd</h2>
+                            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">AppNest Technologies</h2>
                             <div className="section-divider mt-4 mx-auto" />
 
                             <div className="mt-8 space-y-6 text-gray-600 leading-relaxed text-lg">
